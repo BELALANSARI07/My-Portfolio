@@ -1,0 +1,12 @@
+/* We will leverage styled components or modules. To keep it simple, we'll use regular CSS and import them in the components. */
+/* App.css handles layout structure overrides if any */
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}

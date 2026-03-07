@@ -1,0 +1,106 @@
+/* Skills.css */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.skill-card {
+  background: var(--bg-tertiary);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  border: var(--glass-border);
+  transition: all var(--transition-speed);
+  position: relative;
+}
+
+.skill-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius);
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, var(--accent-color), var(--secondary-accent)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--transition-speed);
+}
+
+.skill-card:hover::after {
+  opacity: 1;
+}
+
+.skill-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.skill-icon {
+  font-size: 1.8rem;
+  color: var(--accent-color);
+  transition: text-shadow var(--transition-speed);
+}
+
+.skill-card:hover .skill-icon {
+  text-shadow: 0 0 15px var(--accent-glow);
+}
+
+.circular-skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  justify-items: center;
+}
+
+.circular-skill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.svg-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.circle-bg {
+  stroke: rgba(255, 255, 255, 0.05);
+}
+
+.circle-progress {
+  stroke: url(#gradient); /* If we want an SVG gradient, or use a solid color */
+  stroke: var(--accent-color);
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  filter: drop-shadow(0 0 5px var(--accent-glow));
+}
+
+.circular-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.circular-name {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-align: center;
+  font-weight: 500;
+}
+
+.skill-card:hover .circle-progress {
+  filter: drop-shadow(0 0 10px var(--accent-color));
+}

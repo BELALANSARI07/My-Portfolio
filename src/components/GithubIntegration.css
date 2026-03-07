@@ -1,0 +1,71 @@
+/* GithubIntegration.css */
+.github-card {
+    background: var(--bg-tertiary);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    padding: 3rem;
+    border: var(--glass-border);
+    transition: all var(--transition-speed);
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--glass-shadow);
+}
+
+.github-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--border-radius);
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-accent)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0.2; /* Permanent subtle glow */
+}
+
+.calendar-container {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Override inner react-github-calendar text to match our fonts */
+.calendar-container text {
+    fill: var(--text-secondary) !important;
+    font-family: var(--font-body);
+}
+
+.github-stats {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.github-btn {
+    border-color: var(--secondary-accent);
+}
+
+.github-btn:hover {
+    background: var(--secondary-accent);
+    color: var(--bg-primary);
+    box-shadow: 0 0 15px var(--secondary-accent);
+}
+
+@media (max-width: 768px) {
+    .github-card {
+        padding: 1.5rem;
+    }
+}

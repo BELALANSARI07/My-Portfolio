@@ -1,0 +1,86 @@
+/* AdminAuth.css */
+.admin-login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+  background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: -1px -1px;
+  position: relative;
+  z-index: 1000;
+}
+
+.admin-login-card {
+  background: var(--bg-tertiary);
+  backdrop-filter: blur(15px);
+  padding: 3rem;
+  border-radius: var(--border-radius);
+  border: var(--glass-border);
+  box-shadow: 0 0 40px rgba(0, 240, 255, 0.1);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.admin-login-card h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent-color);
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.admin-login-card .subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.error-message {
+  background: rgba(255, 0, 50, 0.1);
+  color: #ff4d4d;
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255, 0, 50, 0.3);
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.glow-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: inherit;
+  transition: all var(--transition-speed);
+}
+
+.glow-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background: rgba(0, 240, 255, 0.05);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.login-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem;
+}

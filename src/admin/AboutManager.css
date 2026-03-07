@@ -1,0 +1,39 @@
+/* AboutManager.css */
+/* Shared CSS for About, Social Links, and Resume Managers */
+.admin-about-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 800px;
+}
+
+.about-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.admin-form-card {
+  background: var(--bg-tertiary);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  border: var(--glass-border);
+}
+
+.success-banner {
+  background: rgba(0, 240, 255, 0.1);
+  color: var(--accent-color);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
