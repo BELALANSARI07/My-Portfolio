@@ -32,7 +32,7 @@ const GithubIntegration = () => {
                 >
                     <div className="calendar-container">
                         <GitHubCalendar 
-                            username="YOUR_GITHUB_USERNAME" 
+                            username="BELALANSARI07" 
                             blockSize={15}
                             blockMargin={5}
                             colorScheme="dark"
@@ -43,7 +43,7 @@ const GithubIntegration = () => {
                     
                     <div className="github-stats">
                         <a 
-                            href="https://github.com/YOUR_GITHUB_USERNAME" 
+                            href="https://github.com/BELALANSARI07" 
                             target="_blank" 
                             rel="noopener noreferrer" 
                             className="btn btn-secondary github-btn"
