@@ -68,7 +68,7 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.4 }}
         >
           <div className="hero-image-container">
-            <img src="https://instasize.com/p/6d035a35183139013fdffc6a3cb17b5a70e976f9aca206cd701fe53be1844786" alt="Profile Photo" className="hero-photo" />
+            <img src="https://image2url.com/r2/default/images/1772869607337-ec4c22ca-1173-40a8-b9bf-cce0e395f654.jpg" alt="Profile Photo" className="hero-photo" />
           </div>
         </motion.div>
       </div>
