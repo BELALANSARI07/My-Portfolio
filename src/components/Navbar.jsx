@@ -24,10 +24,11 @@ const Navbar = () => {
 
   return (
     <nav id="navbar" className={scrolled ? 'scrolled' : ''}>
-      <div className="nav-container">
-        <Link to="home" smooth={true} duration={500} className="logo" onClick={closeMenu}>
-          <img src="/profile.jpg" alt="BELAL ANSARI" className="nav-profile-pic" />
-          BELAL <span>ANSARI</span>
+      <div className="container nav-container">
+        <Link to="home" smooth={true} duration={500} className="logo-area" onClick={() => setMenuOpen(false)}>
+          <div className="nav-profile-pic">
+            <img src="https://image2url.com/r2/default/images/1772869607337-ec4c22ca-1173-40a8-b9bf-cce0e395f654.jpg" alt="Profile" />
+          </div>BELAL <span>ANSARI</span>
         </Link>
         <ul className={`nav-links ${menuOpen ? 'nav-active' : ''}`}>
           <li>
