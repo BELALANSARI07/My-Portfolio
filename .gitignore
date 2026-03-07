@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Personal Media
+public/profile.jpg
+public/resume.pdf
