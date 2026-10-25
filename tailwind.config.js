@@ -8,39 +8,50 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        canvas: {
-          black: "#08090A",
-          subtle: "#111315",
-          surface: "#1A1D20",
-          card: "#121417",
+        space: {
+          deep: "#030712",
+          card: "rgba(11, 15, 25, 0.75)",
+          surface: "rgba(17, 24, 39, 0.65)",
+          pill: "rgba(30, 41, 59, 0.5)",
+          border: "rgba(255, 255, 255, 0.08)",
+          hover: "rgba(139, 92, 246, 0.4)",
         },
-        border: {
-          subtle: "#23272B",
-          active: "#3E444B",
-          focus: "#5A626C",
-        },
-        text: {
-          muted: "#6C747E",
-          secondary: "#9EA8B3",
-          primary: "#F0F3F6",
-          pure: "#FFFFFF",
-        },
-        telemetry: {
-          green: "#38EF7D",
-          amber: "#FFB020",
-          red: "#FF4D4D",
+        glow: {
+          blue: "#3B82F6",
+          purple: "#8B5CF6",
+          violet: "#9333EA",
+          pink: "#EC4899",
+          cyan: "#06B6D4",
+          amber: "#F59E0B",
+          emerald: "#10B981",
         },
       },
       fontFamily: {
-        mono: ["var(--font-geist-mono)", "JetBrains Mono", "Courier New", "monospace"],
-        sans: ["var(--font-geist-sans)", "Inter", "-apple-system", "sans-serif"],
+        sans: ["var(--font-inter)", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+        mono: ["var(--font-jetbrains-mono)", "JetBrains Mono", "monospace"],
       },
-      backgroundImage: {
-        "grid-pattern": "linear-gradient(to right, #23272B 1px, transparent 1px), linear-gradient(to bottom, #23272B 1px, transparent 1px)",
+      animation: {
+        'float-slow': 'float 6s ease-in-out infinite',
+        'float-reverse': 'float-reverse 5s ease-in-out infinite',
+        'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'spin-slow': 'spin 20s linear infinite',
       },
-      backgroundSize: {
-        "grid-dense": "32px 32px",
-        "grid-sparse": "64px 64px",
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        'float-reverse': {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(8px)' },
+        },
+        'pulse-glow': {
+          '0%, 100%': { opacity: 0.4 },
+          '50%': { opacity: 0.8 },
+        },
+      },
+      backdropBlur: {
+        xs: '2px',
       },
     },
   },

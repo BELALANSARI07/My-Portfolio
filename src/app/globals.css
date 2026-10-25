@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --font-geist-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-geist-mono: "JetBrains Mono", "Cascadia Code", "Courier New", monospace;
+  --font-inter: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  --font-jetbrains-mono: "JetBrains Mono", "Cascadia Code", monospace;
 }
 
 * {
@@ -13,9 +13,9 @@
 
 html {
   scroll-behavior: smooth;
-  background-color: #08090a;
-  color: #f0f3f6;
-  font-family: var(--font-geist-sans);
+  background-color: #030712;
+  color: #f8fafc;
+  font-family: var(--font-inter);
 }
 
 body {
@@ -23,58 +23,83 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-color: #08090a;
-  selection-background-color: #23272b;
+  background-color: #030712;
+  color: #f8fafc;
+  selection-background-color: #8b5cf6;
   selection-color: #ffffff;
 }
 
-/* Custom Scrollbar for Stark Data Canvas */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #08090a;
-  border-left: 1px solid #1a1d20;
+  background: #030712;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #23272b;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3e444b;
+  background: rgba(139, 92, 246, 0.4);
 }
 
-/* Hairline Grid Overlay */
-.data-canvas-grid {
-  background-image: 
-    linear-gradient(to right, rgba(35, 39, 43, 0.45) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(35, 39, 43, 0.45) 1px, transparent 1px);
-  background-size: 32px 32px;
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(11, 15, 25, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Corner Bracket Accents */
-.canvas-card {
-  position: relative;
-  background-color: #111315;
-  border: 1px solid #23272b;
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.canvas-card:hover {
-  border-color: #3e444b;
+.glass-panel-hover:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(139, 92, 246, 0.15);
+  transform: translateY(-2px);
 }
 
-/* Technical Monospace Tag */
-.tech-tag {
-  font-family: var(--font-geist-mono);
+/* Tech Pill Tag */
+.tech-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-size: 0.75rem;
-  padding: 0.15rem 0.5rem;
-  background: #1a1d20;
-  border: 1px solid #23272b;
-  color: #9ea8b3;
-  letter-spacing: 0.05em;
+  font-family: var(--font-jetbrains-mono);
+  padding: 0.25rem 0.65rem;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  color: #94a3b8;
+  transition: all 0.2s ease;
+}
+
+.tech-pill:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.35);
+  color: #f1f5f9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+/* Neon Text Gradient */
+.text-gradient-cosmic {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, #38bdf8 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Blinking Terminal Cursor */
@@ -83,12 +108,12 @@ body {
   50% { opacity: 0; }
 }
 
-.terminal-cursor {
+.typing-cursor {
   display: inline-block;
-  width: 8px;
-  height: 15px;
-  background-color: #ffffff;
-  vertical-align: middle;
-  animation: blink 1s infinite;
+  width: 2px;
+  height: 1.1em;
+  background-color: #8b5cf6;
   margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 0.9s infinite;
 }

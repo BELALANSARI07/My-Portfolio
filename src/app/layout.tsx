@@ -1,19 +1,21 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import TelemetryBar from '@/components/canvas/TelemetryBar';
+import CosmicBackground from '@/components/canvas/CosmicBackground';
 
 export const metadata: Metadata = {
-  title: 'Belal Ansari // AI/ML Engineering & Systems Telemetry Canvas',
+  title: 'Belal Ansari | AI/ML Engineer • Student • Problem Solver',
   description:
-    'Engineering portfolio of Belal Ansari, AI/ML Engineering Student (Class of 2029). Focus in Computer Vision, Generative AI, and Low-Latency Edge Telemetry.',
+    'Portfolio of Belal Ansari, B.Tech CSE (AI/ML) student at Noida International University. Specializing in Generative AI, Computer Vision, and real-world intelligent systems.',
   keywords: [
+    'Belal Ansari',
     'AI Engineer',
     'Machine Learning',
     'Computer Vision',
+    'Generative AI',
+    'YOLO',
     'PyTorch',
-    'Belal Ansari',
-    'Data Canvas',
-    'Next.js 15',
+    'Next.js',
+    'Tailwind CSS',
   ],
 };
 
@@ -24,9 +26,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark scroll-smooth">
-      <body className="min-h-screen bg-canvas-black text-text-primary antialiased selection:bg-border-active selection:text-text-pure">
-        <TelemetryBar adminEmail="belalansari000078@gmail.com" />
-        {children}
+      <body className="min-h-screen bg-[#030712] text-slate-100 antialiased selection:bg-purple-600 selection:text-white relative">
+        <CosmicBackground />
+        <div className="relative z-10 flex flex-col min-h-screen">
+          {children}
+        </div>
       </body>
     </html>
   );
