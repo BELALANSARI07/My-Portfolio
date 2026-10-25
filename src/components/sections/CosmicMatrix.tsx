@@ -108,7 +108,7 @@ export default function CosmicMatrix({ skills, records }: CosmicMatrixProps) {
                   Noida International University
                 </div>
                 <div className="text-[11px] font-mono text-slate-400">
-                  2025 – 2029 • CGPA: 8.65
+                  2025 – 2029 • CGPA: 8.66
                 </div>
               </div>
 

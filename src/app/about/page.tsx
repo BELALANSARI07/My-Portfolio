@@ -76,7 +76,7 @@ export default async function AboutPage() {
                       B.Tech in Computer Science &amp; Engineering (AI &amp; ML)
                     </h3>
                     <span className="text-xs font-mono text-purple-300 px-2 py-0.5 rounded-full border border-purple-500/30 bg-purple-500/10">
-                      CGPA: 8.65
+                      CGPA: 8.66
                     </span>
                   </div>
                   <div className="text-xs text-purple-400">Noida International University, Greater Noida, India</div>
