@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export const revalidate = 300; // Cache for 5 minutes
+export const revalidate = 120; // 2 minutes cache
 
 export async function GET() {
   try {
@@ -11,6 +11,7 @@ export async function GET() {
       followers: 2,
       following: 2,
       avatar_url: 'https://avatars.githubusercontent.com/u/144673673?v=4',
+      profile_url: 'https://github.com/BELALANSARI07',
       repos: [] as Array<{ name: string; description: string | null; language: string | null; stars: number; url: string }>,
     };
 
@@ -18,11 +19,11 @@ export async function GET() {
       const [ghUser, ghRepos] = await Promise.all([
         fetch('https://api.github.com/users/BELALANSARI07', {
           headers: { 'User-Agent': 'BelalPortfolio/1.0' },
-          next: { revalidate: 300 },
+          next: { revalidate: 120 },
         }).then((r) => (r.ok ? r.json() : null)),
         fetch('https://api.github.com/users/BELALANSARI07/repos?sort=updated&per_page=6', {
           headers: { 'User-Agent': 'BelalPortfolio/1.0' },
-          next: { revalidate: 300 },
+          next: { revalidate: 120 },
         }).then((r) => (r.ok ? r.json() : [])),
       ]);
 
@@ -55,11 +56,12 @@ export async function GET() {
       maxRank: 'newbie',
       avatar: 'https://userpic.codeforces.org/5699619/avatar/9d10d40ee89f8073.jpg',
       contribution: 0,
+      profile_url: 'https://codeforces.com/profile/Belal_Ansari',
     };
 
     try {
-      const cfRes = await fetch('https://codeforces.com/api/user.info?handles=belal_ansari', {
-        next: { revalidate: 300 },
+      const cfRes = await fetch('https://codeforces.com/api/user.info?handles=Belal_Ansari', {
+        next: { revalidate: 120 },
       }).then((r) => r.json());
 
       if (cfRes.status === 'OK' && cfRes.result?.[0]) {
@@ -72,21 +74,23 @@ export async function GET() {
           maxRank: u.maxRank ?? 'newbie',
           avatar: u.avatar || codeforcesData.avatar,
           contribution: u.contribution ?? 0,
+          profile_url: `https://codeforces.com/profile/${u.handle}`,
         };
       }
     } catch (err) {
       console.warn('Codeforces fetch note:', err);
     }
 
-    // 3. Fetch LeetCode Stats
+    // 3. Fetch LeetCode Stats for Belal_Ansari07
     let leetcodeData = {
-      username: 'Belal_Ansari',
-      totalSolved: 12,
-      easySolved: 8,
-      mediumSolved: 4,
+      username: 'Belal_Ansari07',
+      totalSolved: 28,
+      easySolved: 17,
+      mediumSolved: 11,
       hardSolved: 0,
-      ranking: '5,000,000+',
-      acceptanceRate: '68.5%',
+      ranking: '3,888,703',
+      profile_url: 'https://leetcode.com/u/Belal_Ansari07/',
+      calendar: {} as Record<string, number>,
     };
 
     try {
@@ -104,25 +108,36 @@ export async function GET() {
               submitStatsGlobal {
                 acSubmissionNum { difficulty count }
               }
+              submissionCalendar
             }
           }`,
-          variables: { username: 'Belal_Ansari' },
+          variables: { username: 'Belal_Ansari07' },
         }),
-        next: { revalidate: 300 },
+        next: { revalidate: 120 },
       }).then((r) => r.json());
 
       if (lcRes.data?.matchedUser) {
         const stats = lcRes.data.matchedUser.submitStatsGlobal?.acSubmissionNum;
         if (Array.isArray(stats)) {
-          const total = stats.find((s: any) => s.difficulty === 'All')?.count ?? 0;
-          const easy = stats.find((s: any) => s.difficulty === 'Easy')?.count ?? 0;
-          const medium = stats.find((s: any) => s.difficulty === 'Medium')?.count ?? 0;
+          const total = stats.find((s: any) => s.difficulty === 'All')?.count ?? 28;
+          const easy = stats.find((s: any) => s.difficulty === 'Easy')?.count ?? 17;
+          const medium = stats.find((s: any) => s.difficulty === 'Medium')?.count ?? 11;
           const hard = stats.find((s: any) => s.difficulty === 'Hard')?.count ?? 0;
 
-          leetcodeData.totalSolved = Math.max(total, leetcodeData.totalSolved);
-          leetcodeData.easySolved = Math.max(easy, leetcodeData.easySolved);
-          leetcodeData.mediumSolved = Math.max(medium, leetcodeData.mediumSolved);
-          leetcodeData.hardSolved = Math.max(hard, leetcodeData.hardSolved);
+          leetcodeData.totalSolved = total;
+          leetcodeData.easySolved = easy;
+          leetcodeData.mediumSolved = medium;
+          leetcodeData.hardSolved = hard;
+        }
+
+        if (lcRes.data.matchedUser.profile?.ranking) {
+          leetcodeData.ranking = Number(lcRes.data.matchedUser.profile.ranking).toLocaleString();
+        }
+
+        if (lcRes.data.matchedUser.submissionCalendar) {
+          try {
+            leetcodeData.calendar = JSON.parse(lcRes.data.matchedUser.submissionCalendar);
+          } catch (e) {}
         }
       }
     } catch (err) {

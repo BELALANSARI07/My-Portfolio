@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import CosmicNavbar from '@/components/navbar/CosmicNavbar';
 import CosmicHero from '@/components/sections/CosmicHero';
 import HighlightCards from '@/components/sections/HighlightCards';
+import CodingPulse from '@/components/sections/CodingPulse';
 import CosmicProjects from '@/components/sections/CosmicProjects';
 import CosmicMatrix from '@/components/sections/CosmicMatrix';
 import CosmicFooter from '@/components/sections/CosmicFooter';
@@ -188,6 +189,7 @@ export default async function Home() {
       <CosmicNavbar resumeUrl={profile.resume_url} />
       <CosmicHero profile={profile} />
       <HighlightCards />
+      <CodingPulse />
       <CosmicProjects projects={projects} />
       <CosmicMatrix skills={skills} records={records} />
       <CosmicFooter profile={profile} />
