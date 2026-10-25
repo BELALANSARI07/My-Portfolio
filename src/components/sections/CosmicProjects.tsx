@@ -43,7 +43,7 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
           {/* Right Action */}
           <Link
             href="/projects"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-white/[0.1] bg-white/[0.04] px-4 py-2.5 text-xs font-semibold text-slate-300 hover:text-white hover:border-purple-500/40 hover:bg-white/[0.08] transition-all self-start md:self-end"
+            className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/[0.1] bg-white/[0.04] px-4 py-2.5 text-xs font-semibold text-slate-300 hover:text-white hover:border-purple-500/40 hover:bg-white/[0.08] transition-all w-full sm:w-auto"
           >
             <span>Explore All Projects &amp; Repos</span>
             <ArrowRight className="h-3.5 w-3.5" />
@@ -60,7 +60,7 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
               onClick={() => setSelectedProject(project)}
-              className="flex flex-col justify-between group cursor-pointer hover:border-purple-500/40 transition-all p-6 sm:p-7 rounded-2xl bg-[#0b0f19]/80 border border-white/[0.08]"
+              className="flex flex-col justify-between group cursor-pointer hover:border-purple-500/40 transition-all p-5 sm:p-7 rounded-2xl bg-[#0b0f19]/80 border border-white/[0.08]"
             >
               <div className="space-y-4">
                 {/* Top Bar: Status Badge and Category */}
@@ -117,7 +117,7 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
                 {project.metrics && project.metrics.length > 0 && (
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-mono">
                     {project.metrics.slice(0, 3).map((m: any, mIdx: number) => (
-                      <div key={mIdx} className="p-2.5 rounded-lg bg-black/40 border border-white/[0.04]">
+                      <div key={mIdx} className="p-2 sm:p-2.5 rounded-lg bg-black/40 border border-white/[0.04]">
                         <div className="text-[10px] text-slate-500 uppercase truncate">{m.label}</div>
                         <div className="text-xs sm:text-sm font-bold text-purple-300 truncate">{m.value}</div>
                       </div>
@@ -127,7 +127,7 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
               </div>
 
               {/* Card Footer: View Details & Direct Links */}
-              <div className="pt-5 border-t border-white/[0.06] mt-6 flex items-center justify-between font-mono text-xs">
+              <div className="pt-4 border-t border-white/[0.06] mt-5 flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
                 <button
                   type="button"
                   onClick={(e) => {
@@ -140,7 +140,7 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
                   <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-1 transition-transform" />
                 </button>
 
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   {project.live_url && (
                     <a
                       href={project.live_url}

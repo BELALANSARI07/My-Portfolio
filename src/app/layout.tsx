@@ -1,6 +1,13 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import CosmicBackground from '@/components/canvas/CosmicBackground';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#030712',
+};
 
 export const metadata: Metadata = {
   title: 'Belal Ansari | AI/ML Engineer • Student • Problem Solver',

@@ -44,8 +44,8 @@ export default async function AboutPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-16">
           {/* Main Story Narrative (lg:col-span-8) */}
-          <div className="lg:col-span-8 space-y-8">
-            <SpotlightCard className="p-8 space-y-5 text-slate-300 text-sm leading-relaxed">
+          <div className="lg:col-span-8 space-y-6 sm:space-y-8">
+            <SpotlightCard className="p-5 sm:p-8 space-y-5 text-slate-300 text-sm leading-relaxed">
               <h2 className="text-xl font-bold text-white tracking-tight">
                 Engineering Philosophy
               </h2>
@@ -61,7 +61,7 @@ export default async function AboutPage() {
             </SpotlightCard>
 
             {/* Academic Milestones */}
-            <SpotlightCard className="p-8 space-y-6">
+            <SpotlightCard className="p-5 sm:p-8 space-y-6">
               <div className="flex items-center gap-3 text-white font-bold text-lg">
                 <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
                   <GraduationCap className="h-5 w-5" />
@@ -70,7 +70,7 @@ export default async function AboutPage() {
               </div>
 
               <div className="space-y-4">
-                <div className="p-5 rounded-2xl border border-white/[0.06] bg-black/30 space-y-1.5">
+                <div className="p-4 sm:p-5 rounded-2xl border border-white/[0.06] bg-black/30 space-y-1.5">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <h3 className="font-bold text-base text-white">
                       B.Tech in Computer Science &amp; Engineering (AI &amp; ML)
@@ -89,7 +89,7 @@ export default async function AboutPage() {
             </SpotlightCard>
 
             {/* Leadership & Community */}
-            <SpotlightCard className="p-8 space-y-6">
+            <SpotlightCard className="p-5 sm:p-8 space-y-6">
               <div className="flex items-center gap-3 text-white font-bold text-lg">
                 <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400">
                   <Users className="h-5 w-5" />

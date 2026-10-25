@@ -67,7 +67,7 @@ export default function CodingPulse() {
 
           <Link
             href="/progress"
-            className="self-start sm:self-auto inline-flex items-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-xs font-semibold text-purple-300 hover:text-white hover:border-purple-500/40 hover:bg-white/[0.08] transition-all shadow-sm"
+            className="self-stretch sm:self-auto inline-flex items-center justify-center gap-2 rounded-xl border border-white/[0.1] bg-white/[0.04] px-4 py-2.5 sm:py-2 text-xs font-semibold text-purple-300 hover:text-white hover:border-purple-500/40 hover:bg-white/[0.08] transition-all shadow-sm w-full sm:w-auto text-center"
           >
             <span>Inspect Full Contribution Heatmaps</span>
             <ArrowRight className="h-3.5 w-3.5" />
@@ -80,7 +80,7 @@ export default function CodingPulse() {
           {/* LeetCode Card */}
           <SpotlightCard
             spotlightColor="rgba(245, 158, 11, 0.18)"
-            className="p-6 flex flex-col justify-between group"
+            className="p-5 sm:p-6 flex flex-col justify-between group"
           >
             <div>
               <div className="flex items-center justify-between pb-3 border-b border-white/[0.06] mb-4">
@@ -155,7 +155,7 @@ export default function CodingPulse() {
           {/* Codeforces Card */}
           <SpotlightCard
             spotlightColor="rgba(168, 85, 247, 0.18)"
-            className="p-6 flex flex-col justify-between group"
+            className="p-5 sm:p-6 flex flex-col justify-between group"
           >
             <div>
               <div className="flex items-center justify-between pb-3 border-b border-white/[0.06] mb-4">
@@ -221,7 +221,7 @@ export default function CodingPulse() {
           {/* GitHub Card */}
           <SpotlightCard
             spotlightColor="rgba(59, 130, 246, 0.18)"
-            className="p-6 flex flex-col justify-between group"
+            className="p-5 sm:p-6 flex flex-col justify-between group"
           >
             <div>
               <div className="flex items-center justify-between pb-3 border-b border-white/[0.06] mb-4">

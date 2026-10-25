@@ -78,10 +78,10 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
 
             {/* Display Title with Vibrant Gradient */}
             <div className="space-y-1">
-              <h2 className="text-3xl sm:text-4xl text-white font-normal tracking-tight">
+              <h2 className="text-2xl sm:text-4xl text-white font-normal tracking-tight">
                 Hi, I'm
               </h2>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight">
                 <span className="text-white">Belal </span>
                 <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(168,85,247,0.35)]">
                   Ansari
@@ -90,7 +90,7 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
             </div>
 
             {/* Dynamic Typing Sub-headline */}
-            <div className="min-h-[52px]">
+            <div className="min-h-[58px] sm:min-h-[52px]">
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-sans">
                 {displayText}
                 <span className="typing-cursor" />
@@ -103,10 +103,10 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
 
             {/* Action Buttons & Social Icons */}
             <div className="pt-2 space-y-5">
-              <div className="flex flex-wrap items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
                 <Link
                   href="/projects"
-                  className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-6 py-3 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-6 py-3.5 sm:py-3 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all text-center"
                 >
                   <span>View My Work</span>
                   <ArrowRight className="h-4 w-4" />
@@ -114,7 +114,7 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
 
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/[0.12] bg-[#0b0f19]/80 px-6 py-3 text-xs sm:text-sm font-semibold text-slate-200 backdrop-blur-md hover:bg-white/[0.08] hover:border-purple-500/40 hover:text-white transition-all shadow-sm"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/[0.12] bg-[#0b0f19]/80 px-6 py-3.5 sm:py-3 text-xs sm:text-sm font-semibold text-slate-200 backdrop-blur-md hover:bg-white/[0.08] hover:border-purple-500/40 hover:text-white transition-all shadow-sm text-center"
                 >
                   <span>Contact Me</span>
                 </Link>
@@ -160,17 +160,17 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.2 }}
-            className="lg:col-span-4 flex items-center justify-center relative min-h-[420px]"
+            className="lg:col-span-4 flex items-center justify-center relative min-h-[360px] sm:min-h-[420px] my-4 lg:my-0"
           >
             {/* Cosmic Orbital Halo Ring */}
-            <div className="absolute w-[340px] h-[340px] sm:w-[380px] sm:h-[380px] rounded-full border border-purple-500/30 shadow-[0_0_60px_rgba(139,92,246,0.3)] animate-spin-slow pointer-events-none" />
-            <div className="absolute w-[360px] h-[360px] sm:w-[400px] sm:h-[400px] rounded-full border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.2)] pointer-events-none" />
+            <div className="absolute w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] rounded-full border border-purple-500/30 shadow-[0_0_60px_rgba(139,92,246,0.3)] animate-spin-slow pointer-events-none" />
+            <div className="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] rounded-full border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.2)] pointer-events-none" />
 
             {/* Glowing Backdrop behind Avatar */}
-            <div className="absolute w-64 h-64 rounded-full bg-gradient-to-tr from-blue-600/30 to-purple-600/30 blur-2xl pointer-events-none" />
+            <div className="absolute w-52 h-52 sm:w-64 sm:h-64 rounded-full bg-gradient-to-tr from-blue-600/30 to-purple-600/30 blur-2xl pointer-events-none" />
 
             {/* Profile Avatar Card / Frame */}
-            <div className="relative z-10 w-64 h-80 sm:w-72 sm:h-96 rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-white/10 to-transparent backdrop-blur-md shadow-2xl">
+            <div className="relative z-10 w-56 h-72 sm:w-72 sm:h-96 rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-white/10 to-transparent backdrop-blur-md shadow-2xl">
               <img
                 src={profile.avatar_url || "/belal-ansari.png"}
                 alt={profile.full_name}
@@ -184,9 +184,9 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-3 -left-4 sm:-left-8 z-20 flex items-center gap-2 rounded-xl border border-purple-500/30 bg-[#0b0f19]/85 px-3.5 py-2 text-xs font-medium text-white shadow-lg shadow-purple-500/20 backdrop-blur-xl"
+              className="absolute -top-2 left-0 sm:-left-8 z-20 flex items-center gap-1.5 sm:gap-2 rounded-xl border border-purple-500/30 bg-[#0b0f19]/90 px-3 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-medium text-white shadow-lg shadow-purple-500/20 backdrop-blur-xl"
             >
-              <Sparkles className="h-4 w-4 text-purple-400" />
+              <Sparkles className="h-3.5 w-3.5 text-purple-400" />
               <span>Generative AI</span>
             </motion.div>
 
@@ -194,9 +194,9 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="absolute top-1/2 -left-6 sm:-left-12 -translate-y-1/2 z-20 flex items-center gap-2 rounded-xl border border-blue-500/30 bg-[#0b0f19]/85 px-3.5 py-2 text-xs font-medium text-white shadow-lg shadow-blue-500/20 backdrop-blur-xl"
+              className="absolute top-1/2 -left-2 sm:-left-12 -translate-y-1/2 z-20 flex items-center gap-1.5 sm:gap-2 rounded-xl border border-blue-500/30 bg-[#0b0f19]/90 px-3 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-medium text-white shadow-lg shadow-blue-500/20 backdrop-blur-xl"
             >
-              <Eye className="h-4 w-4 text-blue-400" />
+              <Eye className="h-3.5 w-3.5 text-blue-400" />
               <span>Computer Vision</span>
             </motion.div>
 
@@ -204,9 +204,9 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
             <motion.div
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute -bottom-2 -left-2 sm:-left-6 z-20 flex items-center gap-2 rounded-xl border border-cyan-500/30 bg-[#0b0f19]/85 px-3.5 py-2 text-xs font-medium text-white shadow-lg shadow-cyan-500/20 backdrop-blur-xl"
+              className="absolute -bottom-2 right-0 sm:right-auto sm:-left-6 z-20 flex items-center gap-1.5 sm:gap-2 rounded-xl border border-cyan-500/30 bg-[#0b0f19]/90 px-3 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-medium text-white shadow-lg shadow-cyan-500/20 backdrop-blur-xl"
             >
-              <Hexagon className="h-4 w-4 text-cyan-400" />
+              <Hexagon className="h-3.5 w-3.5 text-cyan-400" />
               <span>Real-world Apps</span>
             </motion.div>
           </motion.div>

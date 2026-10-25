@@ -56,7 +56,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="relative z-10 w-full max-w-3xl rounded-3xl border border-white/[0.12] bg-[#0b0f19] p-5 sm:p-8 shadow-2xl backdrop-blur-2xl max-h-[92vh] overflow-y-auto text-left"
+          className="relative z-10 w-full max-w-3xl rounded-2xl sm:rounded-3xl border border-white/[0.12] bg-[#0b0f19] p-4 sm:p-8 shadow-2xl backdrop-blur-2xl max-h-[90vh] overflow-y-auto text-left"
         >
           {/* Top Bar: Status, Category, Close */}
           <div className="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-6">
@@ -156,14 +156,14 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           )}
 
           {/* MODAL ACTION BUTTONS */}
-          <div className="pt-5 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-3">
+          <div className="pt-5 border-t border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
               {project.repo_url && (
                 <a
                   href={project.repo_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-5 py-2.5 text-xs font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-5 py-3 sm:py-2.5 text-xs font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all text-center"
                 >
                   <Github className="h-4 w-4" />
                   <span>Inspect GitHub Repository</span>
@@ -176,7 +176,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={project.live_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/[0.12] bg-[#0b0f19] px-5 py-2.5 text-xs font-semibold text-slate-200 hover:text-white hover:bg-white/[0.06] hover:border-purple-500/40 transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/[0.12] bg-[#0b0f19] px-5 py-3 sm:py-2.5 text-xs font-semibold text-slate-200 hover:text-white hover:bg-white/[0.06] hover:border-purple-500/40 transition-all text-center"
                 >
                   <ExternalLink className="h-4 w-4" />
                   <span>Open Live Demo</span>
@@ -186,7 +186,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
             <button
               onClick={onClose}
-              className="text-xs text-slate-400 hover:text-white font-mono transition-colors"
+              className="text-xs text-slate-400 hover:text-white font-mono transition-colors text-center py-2 sm:py-0"
             >
               Close Blueprint ✕
             </button>

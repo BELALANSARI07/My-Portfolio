@@ -75,18 +75,22 @@ export default function ContributionHeatmap({
   };
 
   return (
-    <div className="p-5 rounded-2xl border border-white/[0.08] bg-[#0b0f19]/80 backdrop-blur-xl">
-      <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.06] text-xs">
+    <div className="p-4 sm:p-5 rounded-2xl border border-white/[0.08] bg-[#0b0f19]/80 backdrop-blur-xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-3 border-b border-white/[0.06] text-xs">
         <span className="font-semibold text-white tracking-tight">{title}</span>
-        <div className="flex items-center gap-3 text-slate-400 font-mono text-[11px]">
+        <div className="flex items-center gap-2.5 text-slate-400 font-mono text-[11px]">
           <span>{totalSubmissions !== undefined ? `${totalSubmissions} Total Solved` : `${activeDaysCount} Active Days`}</span>
           <span className="text-slate-600">•</span>
           <span>Last 6 Months</span>
         </div>
       </div>
 
+      <div className="text-[10px] font-mono text-purple-400/80 mb-2 sm:hidden flex items-center justify-end gap-1">
+        <span>← Swipe to view timeline →</span>
+      </div>
+
       {/* Heatmap Grid */}
-      <div className="overflow-x-auto pb-2">
+      <div className="overflow-x-auto pb-2 touch-pan-x scrollbar-thin">
         <div className="flex gap-1.5 min-w-[580px]">
           {weeks.map((week, wIdx) => (
             <div key={wIdx} className="flex flex-col gap-1.5">

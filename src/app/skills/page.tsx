@@ -74,7 +74,7 @@ export default async function SkillsPage() {
             if (catSkills.length === 0) return null;
 
             return (
-              <SpotlightCard key={catKey} className="p-6 sm:p-8">
+              <SpotlightCard key={catKey} className="p-5 sm:p-8">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/[0.06] mb-6">
                   <div className="flex items-center gap-3">
                     <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400">

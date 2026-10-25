@@ -80,7 +80,7 @@ export default async function ExperiencePage() {
         {/* Experience Timeline Cards */}
         <div className="space-y-6">
           {records.map((item, idx) => (
-            <SpotlightCard key={item.id} className="p-6 sm:p-8">
+            <SpotlightCard key={item.id} className="p-5 sm:p-8">
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 pb-4 border-b border-white/[0.06] mb-4">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 font-mono text-xs text-purple-400">

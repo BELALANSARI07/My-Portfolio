@@ -65,12 +65,12 @@ export default function CosmicFooter({ profile }: CosmicFooterProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Callout Banner (From Reference Image) */}
-        <div className="rounded-3xl border border-white/[0.1] bg-gradient-to-r from-blue-950/30 via-purple-950/30 to-indigo-950/20 p-8 sm:p-12 mb-16 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+        <div className="rounded-2xl sm:rounded-3xl border border-white/[0.1] bg-gradient-to-r from-blue-950/30 via-purple-950/30 to-indigo-950/20 p-6 sm:p-12 mb-12 sm:mb-16 backdrop-blur-xl shadow-2xl relative overflow-hidden">
           {/* Subtle Ambient Glow inside Card */}
           <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-purple-600/20 blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-blue-600/20 blur-3xl pointer-events-none" />
 
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 text-center lg:text-left">
             <div className="space-y-3 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/20 bg-blue-500/10 text-blue-400 font-mono text-[11px] uppercase tracking-wider">
                 <span>LET'S CONNECT</span>
@@ -84,10 +84,10 @@ export default function CosmicFooter({ profile }: CosmicFooterProps) {
             </div>
 
             {/* Banner Buttons */}
-            <div className="flex flex-wrap items-center justify-center gap-4 shrink-0">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 w-full lg:w-auto shrink-0">
               <button
                 onClick={() => setModalOpen(true)}
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-6 py-3 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-6 py-3.5 sm:py-3 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all text-center"
               >
                 <span>Contact Me</span>
                 <ArrowRight className="h-4 w-4" />
@@ -97,7 +97,7 @@ export default function CosmicFooter({ profile }: CosmicFooterProps) {
                 href={profile.resume_url || 'https://drive.google.com/file/d/1XN3kU-m0nC1BwG-H8-7cR-6hG/view'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-white/[0.12] bg-[#0b0f19]/80 px-6 py-3 text-xs sm:text-sm font-semibold text-slate-200 backdrop-blur-md hover:bg-white/[0.08] hover:border-purple-500/40 hover:text-white transition-all shadow-sm"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/[0.12] bg-[#0b0f19]/80 px-6 py-3.5 sm:py-3 text-xs sm:text-sm font-semibold text-slate-200 backdrop-blur-md hover:bg-white/[0.08] hover:border-purple-500/40 hover:text-white transition-all shadow-sm text-center"
               >
                 <span>Download Resume</span>
                 <Download className="h-4 w-4 text-slate-400" />
@@ -107,8 +107,8 @@ export default function CosmicFooter({ profile }: CosmicFooterProps) {
         </div>
 
         {/* Global Bottom Footer Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500 text-center sm:text-left">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-slate-300 font-sans font-medium">Belal Ansari</span>
             <span>•</span>
@@ -132,7 +132,7 @@ export default function CosmicFooter({ profile }: CosmicFooterProps) {
       {/* Interactive Contact Modal */}
       <AnimatePresence>
         {modalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -145,7 +145,7 @@ export default function CosmicFooter({ profile }: CosmicFooterProps) {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative z-10 w-full max-w-lg rounded-3xl border border-white/[0.12] bg-[#0b0f19] p-6 sm:p-8 shadow-2xl backdrop-blur-2xl"
+              className="relative z-10 w-full max-w-lg rounded-2xl sm:rounded-3xl border border-white/[0.12] bg-[#0b0f19] p-5 sm:p-8 shadow-2xl backdrop-blur-2xl max-h-[90vh] overflow-y-auto"
             >
               <div className="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-6">
                 <div>

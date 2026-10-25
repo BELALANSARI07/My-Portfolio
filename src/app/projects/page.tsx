@@ -77,8 +77,8 @@ export default function ProjectsPage() {
           </div>
 
           {/* GitHub Auto-Sync Telemetry Badge */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-mono">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full md:w-auto">
+            <div className="flex items-center justify-center gap-2 px-3.5 py-2 sm:py-1.5 rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-mono">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -91,7 +91,7 @@ export default function ProjectsPage() {
             <button
               onClick={fetchSyncedProjects}
               disabled={isSyncing}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-white/[0.1] bg-white/[0.04] text-xs font-mono text-slate-300 hover:text-white hover:bg-white/[0.08] transition-all disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-xl border border-white/[0.1] bg-white/[0.04] text-xs font-mono text-slate-300 hover:text-white hover:bg-white/[0.08] transition-all disabled:opacity-50"
               title="Refresh project list from GitHub"
             >
               <RefreshCw className={`h-3 w-3 ${isSyncing ? 'animate-spin text-purple-400' : ''}`} />
@@ -101,8 +101,8 @@ export default function ProjectsPage() {
         </div>
 
         {/* Filter and Search Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
-          <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-8">
+          <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 scrollbar-none">
             {[
               { id: 'ALL', label: 'All Projects' },
               { id: 'VISION', label: 'Computer Vision' },
@@ -113,7 +113,7 @@ export default function ProjectsPage() {
               <button
                 key={tab.id}
                 onClick={() => setFilter(tab.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
+                className={`px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
                   filter === tab.id
                     ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold shadow-md shadow-purple-500/20'
                     : 'border border-white/[0.08] bg-[#0b0f19] text-slate-400 hover:text-white hover:bg-white/[0.04]'
@@ -131,7 +131,7 @@ export default function ProjectsPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search stack, mission, or specs..."
-              className="w-full rounded-xl border border-white/[0.08] bg-[#0b0f19] pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:border-purple-500 focus:outline-none"
+              className="w-full rounded-xl border border-white/[0.08] bg-[#0b0f19] pl-9 pr-4 py-2.5 sm:py-2 text-xs text-white placeholder-slate-500 focus:border-purple-500 focus:outline-none"
             />
           </div>
         </div>
@@ -142,7 +142,7 @@ export default function ProjectsPage() {
             <SpotlightCard
               key={project.id || project.slug}
               onClick={() => setSelectedProject(project)}
-              className="flex flex-col justify-between group cursor-pointer hover:border-purple-500/40 transition-all p-6 rounded-2xl bg-[#0b0f19]/80 border border-white/[0.08]"
+              className="flex flex-col justify-between group cursor-pointer hover:border-purple-500/40 transition-all p-5 sm:p-6 rounded-2xl bg-[#0b0f19]/80 border border-white/[0.08]"
             >
               <div className="space-y-4">
                 {/* Top Bar: Status Badge and Category */}
@@ -209,7 +209,7 @@ export default function ProjectsPage() {
               </div>
 
               {/* Footer */}
-              <div className="pt-4 border-t border-white/[0.06] mt-5 flex items-center justify-between font-mono text-xs">
+              <div className="pt-4 border-t border-white/[0.06] mt-5 flex flex-wrap items-center justify-between gap-2.5 font-mono text-xs">
                 <button
                   type="button"
                   onClick={(e) => {

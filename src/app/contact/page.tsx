@@ -62,7 +62,7 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Direct Endpoints (lg:col-span-5) */}
           <div className="lg:col-span-5 space-y-6">
-            <SpotlightCard className="p-8 space-y-6">
+            <SpotlightCard className="p-5 sm:p-8 space-y-6">
               <h2 className="text-xl font-bold text-white tracking-tight pb-3 border-b border-white/[0.06]">
                 Direct Coordinates
               </h2>
@@ -138,7 +138,7 @@ export default function ContactPage() {
 
           {/* Contact Form (lg:col-span-7) */}
           <div className="lg:col-span-7">
-            <SpotlightCard className="p-8 sm:p-10 space-y-6">
+            <SpotlightCard className="p-5 sm:p-10 space-y-6">
               <div>
                 <h2 className="text-2xl font-bold text-white tracking-tight">Send a Direct Transmission</h2>
                 <p className="text-xs text-slate-400 mt-1">Dispatched directly via Resend to Belal's personal inbox</p>

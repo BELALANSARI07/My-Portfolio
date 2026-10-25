@@ -47,7 +47,7 @@ export default function SpotlightCard({
       />
 
       {/* Card Content */}
-      <div className="relative z-10">{children}</div>
+      <div className="relative z-10 h-full flex flex-col justify-between">{children}</div>
     </motion.div>
   );
 }

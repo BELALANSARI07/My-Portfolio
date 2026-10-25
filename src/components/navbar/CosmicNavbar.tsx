@@ -79,7 +79,7 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
         </nav>
 
         {/* Right: Actions */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-3">
           <Link
             href="/admin"
             className="p-2 text-slate-400 hover:text-purple-300 transition-colors"
@@ -103,18 +103,19 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
           </a>
         </div>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Toggle Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="flex sm:hidden p-2 text-slate-300 hover:text-white"
+          className="flex md:hidden p-2 rounded-xl border border-white/[0.1] bg-white/[0.04] text-slate-300 hover:text-white focus:outline-none"
+          aria-label="Toggle navigation menu"
         >
-          {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {mobileMenuOpen ? <X className="h-5 w-5 text-purple-400" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-b border-white/[0.08] bg-[#030712]/95 backdrop-blur-2xl px-4 py-4 space-y-2">
+        <div className="md:hidden border-b border-white/[0.08] bg-[#030712]/98 backdrop-blur-2xl px-4 py-5 space-y-2 shadow-2xl max-h-[calc(100vh-4rem)] overflow-y-auto">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -122,16 +123,16 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
                 key={item.name}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                className={`block px-4 py-3 text-sm font-medium rounded-xl transition-all ${
                   isActive
-                    ? 'bg-purple-600/20 text-white font-semibold border border-purple-500/30'
+                    ? 'bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-white font-semibold border border-purple-500/40 shadow-sm'
                     : 'text-slate-300 hover:text-white hover:bg-white/[0.04]'
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <span>{item.name}</span>
                   {item.isPulse && (
-                    <span className="text-[10px] font-mono text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded-full bg-emerald-500/10">
+                    <span className="text-[10px] font-mono text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full bg-emerald-500/10">
                       LIVE STATS
                     </span>
                   )}
@@ -139,22 +140,22 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
               </Link>
             );
           })}
-          <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between">
+          <div className="pt-4 mt-2 border-t border-white/[0.08] flex items-center justify-between gap-3">
             <Link
               href="/admin"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-xs text-slate-400 hover:text-purple-300 flex items-center gap-1.5"
+              className="text-xs text-slate-400 hover:text-purple-300 flex items-center gap-1.5 p-2 rounded-lg hover:bg-white/[0.04]"
             >
-              <Shield className="h-3.5 w-3.5" />
+              <Shield className="h-4 w-4 text-purple-400" />
               <span>Admin Gate</span>
             </Link>
             <a
-              href={resumeUrl || '#'}
+              href={resumeUrl || 'https://drive.google.com/file/d/1XN3kU-m0nC1BwG-H8-7cR-6hG/view'}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.1] text-xs text-white"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-white/[0.12] bg-purple-600/20 text-xs font-semibold text-white shadow-sm"
             >
-              <Download className="h-3 w-3" />
+              <Download className="h-3.5 w-3.5" />
               <span>Resume</span>
             </a>
           </div>
