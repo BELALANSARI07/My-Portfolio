@@ -61,6 +61,32 @@ export interface Project {
   status: 'PRODUCTION' | 'RESEARCH' | 'EXPERIMENT';
   featured: boolean;
   display_order: number;
+  latency_ms?: number | null;
+  accuracy_pct?: number | null;
+  power_draw_w?: number | null;
+  alert_thresholds?: {
+    confidence?: number;
+    iou?: number;
+    cooldown_s?: number;
+    audio_alarm?: boolean;
+    gpio_pin?: number;
+    [key: string]: any;
+  } | null;
+  edge_specs?: {
+    target_hardware?: string;
+    core_stack?: string[];
+    inference_latency?: string;
+    alert_response?: string;
+    [key: string]: any;
+  } | null;
+  mock_logs?: string[] | null;
+  mock_stream_active?: boolean | null;
+  mock_detections?: Array<{
+    label: string;
+    confidence: number;
+    box: [number, number, number, number];
+    region?: string;
+  }> | null;
   created_at: string;
   updated_at: string;
 }

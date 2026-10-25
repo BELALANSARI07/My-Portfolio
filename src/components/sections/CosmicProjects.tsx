@@ -7,6 +7,7 @@ import { Project } from '@/types/database.types';
 import SpotlightCard from '@/components/ui/SpotlightCard';
 import ProjectModal from '@/components/ui/ProjectModal';
 import { EnrichedProject, mergeWithEnrichedProjects } from '@/data/projects';
+import EdgeAiProjectCard from '@/components/projects/EdgeAiProjectCard';
 import Link from 'next/link';
 
 interface CosmicProjectsProps {
@@ -72,108 +73,122 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
 
         {/* Projects Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {enrichedProjects.slice(0, 4).map((project, idx) => (
-            <SpotlightCard
-              key={project.id || project.slug}
-              initial={{ opacity: 0, y: 35 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.12 }}
-              onClick={() => setSelectedProject(project)}
-              className="flex flex-col justify-between group cursor-pointer hover:border-purple-500/40 transition-all"
-            >
-              <div>
-                {/* Project Image Frame */}
-                <div className="relative h-44 w-full overflow-hidden rounded-t-xl bg-slate-900/60">
-                  <img
-                    src={getProjectImage(project.slug, idx)}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-90" />
-                  
-                  {/* Status Indicator */}
-                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md border border-white/10 bg-black/60 backdrop-blur-md text-[10px] font-mono text-emerald-400">
-                    ● {project.status || 'PRODUCTION'}
+          {enrichedProjects.slice(0, 4).map((project, idx) => {
+            const isEdgeAi = project.slug.includes('edge') || project.slug.includes('alert');
+
+            if (isEdgeAi) {
+              return (
+                <EdgeAiProjectCard
+                  key={project.id || project.slug}
+                  project={project}
+                  onOpenModal={() => setSelectedProject(project)}
+                />
+              );
+            }
+
+            return (
+              <SpotlightCard
+                key={project.id || project.slug}
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.12 }}
+                onClick={() => setSelectedProject(project)}
+                className="flex flex-col justify-between group cursor-pointer hover:border-purple-500/40 transition-all"
+              >
+                <div>
+                  {/* Project Image Frame */}
+                  <div className="relative h-44 w-full overflow-hidden rounded-t-xl bg-slate-900/60">
+                    <img
+                      src={getProjectImage(project.slug, idx)}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-90" />
+                    
+                    {/* Status Indicator */}
+                    <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md border border-white/10 bg-black/60 backdrop-blur-md text-[10px] font-mono text-emerald-400">
+                      ● {project.status || 'PRODUCTION'}
+                    </div>
+
+                    {/* Quick Blueprint Hint on Hover */}
+                    <div className="absolute bottom-2 left-3 text-[10px] font-mono text-purple-300 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                      <Target className="h-3 w-3" />
+                      <span>Click to view details</span>
+                    </div>
                   </div>
 
-                  {/* Quick Blueprint Hint on Hover */}
-                  <div className="absolute bottom-2 left-3 text-[10px] font-mono text-purple-300 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                    <Target className="h-3 w-3" />
-                    <span>Click to view details</span>
+                  {/* Card Body */}
+                  <div className="p-5 space-y-3">
+                    <h3 className="font-bold text-base text-white group-hover:text-purple-300 transition-colors line-clamp-1">
+                      {project.title}
+                    </h3>
+
+                    {/* Tech Stack Pills */}
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.stack.slice(0, 3).map((tag) => (
+                        <span key={tag} className="tech-pill text-[10px]">
+                          {tag}
+                        </span>
+                      ))}
+                      {project.stack.length > 3 && (
+                        <span className="tech-pill text-[10px] opacity-70">
+                          +{project.stack.length - 3}
+                        </span>
+                      )}
+                    </div>
+
+                    <p className="text-slate-400 text-xs leading-relaxed line-clamp-3">
+                      {project.what_is_it_for || project.tagline || project.architecture_summary}
+                    </p>
                   </div>
                 </div>
 
-                {/* Card Body */}
-                <div className="p-5 space-y-3">
-                  <h3 className="font-bold text-base text-white group-hover:text-purple-300 transition-colors line-clamp-1">
-                    {project.title}
-                  </h3>
+                {/* Card Footer: View Details & Direct GitHub Link */}
+                <div className="p-5 pt-0 border-t border-white/[0.06] mt-4 flex items-center justify-between font-mono text-xs">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedProject(project);
+                    }}
+                    className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 font-sans text-xs font-semibold group/btn"
+                  >
+                    <span>Inspect Details</span>
+                    <ArrowRight className="h-3 w-3 group-hover/btn:translate-x-0.5 transition-transform" />
+                  </button>
 
-                  {/* Tech Stack Pills */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.stack.slice(0, 3).map((tag) => (
-                      <span key={tag} className="tech-pill text-[10px]">
-                        {tag}
-                      </span>
-                    ))}
-                    {project.stack.length > 3 && (
-                      <span className="tech-pill text-[10px] opacity-70">
-                        +{project.stack.length - 3}
-                      </span>
+                  <div className="flex items-center gap-1">
+                    {project.live_url && (
+                      <a
+                        href={project.live_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-400 hover:bg-white/[0.06] transition-colors"
+                        title="Live Demo"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    )}
+
+                    {project.repo_url && (
+                      <a
+                        href={project.repo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+                        title="View GitHub Repository"
+                      >
+                        <Github className="h-4 w-4" />
+                      </a>
                     )}
                   </div>
-
-                  <p className="text-slate-400 text-xs leading-relaxed line-clamp-3">
-                    {project.what_is_it_for || project.tagline || project.architecture_summary}
-                  </p>
                 </div>
-              </div>
-
-              {/* Card Footer: View Details & Direct GitHub Link */}
-              <div className="p-5 pt-0 border-t border-white/[0.06] mt-4 flex items-center justify-between font-mono text-xs">
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedProject(project);
-                  }}
-                  className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 font-sans text-xs font-semibold group/btn"
-                >
-                  <span>Inspect Details</span>
-                  <ArrowRight className="h-3 w-3 group-hover/btn:translate-x-0.5 transition-transform" />
-                </button>
-
-                <div className="flex items-center gap-1">
-                  {project.live_url && (
-                    <a
-                      href={project.live_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-400 hover:bg-white/[0.06] transition-colors"
-                      title="Live Demo"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                    </a>
-                  )}
-
-                  {project.repo_url && (
-                    <a
-                      href={project.repo_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
-                      title="View GitHub Repository"
-                    >
-                      <Github className="h-4 w-4" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </SpotlightCard>
-          ))}
+              </SpotlightCard>
+            );
+          })}
         </div>
 
         {/* Interactive Modal */}

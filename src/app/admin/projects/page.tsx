@@ -241,6 +241,128 @@ export default function ProjectsManager() {
                 className="w-full bg-canvas-black border border-border-subtle p-2 text-text-pure focus:outline-none"
               />
             </div>
+
+            {/* EDGE AI REAL-TIME TELEMETRY & SPECS CONTROLS */}
+            <div className="md:col-span-2 border-t border-border-subtle pt-4 mt-2">
+              <div className="flex items-center gap-2 mb-3 text-telemetry-green font-bold">
+                <Activity className="h-4 w-4" />
+                <span>DYNAMIC EDGE TELEMETRY &amp; HARDWARE METRICS</span>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label className="text-text-muted text-[10px] block mb-1">INFERENCE LATENCY (ms)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={editingProject.latency_ms ?? 14.5}
+                    onChange={(e) => setEditingProject({ ...editingProject, latency_ms: parseFloat(e.target.value) || 0 })}
+                    className="w-full bg-canvas-black border border-border-subtle p-2 text-text-pure focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-text-muted text-[10px] block mb-1">ACCURACY (% mAP@0.5)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={editingProject.accuracy_pct ?? 84.6}
+                    onChange={(e) => setEditingProject({ ...editingProject, accuracy_pct: parseFloat(e.target.value) || 0 })}
+                    className="w-full bg-canvas-black border border-border-subtle p-2 text-text-pure focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-text-muted text-[10px] block mb-1">POWER DRAW (WATTS)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={editingProject.power_draw_w ?? 7.5}
+                    onChange={(e) => setEditingProject({ ...editingProject, power_draw_w: parseFloat(e.target.value) || 0 })}
+                    className="w-full bg-canvas-black border border-border-subtle p-2 text-text-pure focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-3 flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="mockStreamActive"
+                  checked={editingProject.mock_stream_active ?? true}
+                  onChange={(e) => setEditingProject({ ...editingProject, mock_stream_active: e.target.checked })}
+                  className="rounded border-border-subtle bg-canvas-black text-telemetry-green"
+                />
+                <label htmlFor="mockStreamActive" className="text-text-muted text-[11px] cursor-pointer">
+                  MOCK STREAM &amp; LIVE INFERENCE HUD ACTIVE
+                </label>
+              </div>
+
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-text-muted text-[10px] block mb-1">ALERT THRESHOLDS (JSON)</label>
+                  <textarea
+                    rows={4}
+                    value={
+                      typeof editingProject.alert_thresholds === 'object'
+                        ? JSON.stringify(editingProject.alert_thresholds, null, 2)
+                        : editingProject.alert_thresholds || ''
+                    }
+                    onChange={(e) => {
+                      try {
+                        const parsed = JSON.parse(e.target.value);
+                        setEditingProject({ ...editingProject, alert_thresholds: parsed });
+                      } catch {
+                        // Allow typing
+                      }
+                    }}
+                    className="w-full bg-canvas-black border border-border-subtle p-2 text-text-pure font-mono text-[11px] focus:outline-none"
+                    placeholder='{"confidence": 0.85, "iou": 0.45, "cooldown_s": 2}'
+                  />
+                </div>
+
+                <div>
+                  <label className="text-text-muted text-[10px] block mb-1">MOCK LOG FEED (NEWLINE SEPARATED)</label>
+                  <textarea
+                    rows={4}
+                    value={
+                      Array.isArray(editingProject.mock_logs)
+                        ? editingProject.mock_logs.join('\n')
+                        : editingProject.mock_logs || ''
+                    }
+                    onChange={(e) =>
+                      setEditingProject({
+                        ...editingProject,
+                        mock_logs: e.target.value.split('\n').filter((l) => l.trim().length > 0),
+                      })
+                    }
+                    className="w-full bg-canvas-black border border-border-subtle p-2 text-text-pure font-mono text-[11px] focus:outline-none"
+                    placeholder="[02:14:02] Camera-01 stream initialized."
+                  />
+                </div>
+              </div>
+
+              <div className="mt-3">
+                <label className="text-text-muted text-[10px] block mb-1">EDGE HARDWARE SPECIFICATIONS (JSON / METADATA)</label>
+                <textarea
+                  rows={4}
+                  value={
+                    typeof editingProject.edge_specs === 'object'
+                      ? JSON.stringify(editingProject.edge_specs, null, 2)
+                      : editingProject.edge_specs || ''
+                  }
+                  onChange={(e) => {
+                    try {
+                      const parsed = JSON.parse(e.target.value);
+                      setEditingProject({ ...editingProject, edge_specs: parsed });
+                    } catch {
+                      // Allow typing
+                    }
+                  }}
+                  className="w-full bg-canvas-black border border-border-subtle p-2 text-text-pure font-mono text-[11px] focus:outline-none"
+                  placeholder='{"target_hardware": "NVIDIA Jetson Nano", "inference_latency": "14.5ms"}'
+                />
+              </div>
+            </div>
           </div>
 
           <div className="flex justify-end gap-3 pt-3 border-t border-border-subtle">
