@@ -14,7 +14,6 @@ import {
   ArrowUpRight 
 } from 'lucide-react';
 import { EnrichedProject } from '@/data/projects';
-import EdgeAiLiveMonitor from '@/components/projects/EdgeAiLiveMonitor';
 
 interface ProjectModalProps {
   project: EnrichedProject | null;
@@ -39,8 +38,6 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
   if (!project) return null;
 
-  const isEdgeAi = project.slug.includes('edge') || project.slug.includes('alert');
-
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
@@ -59,9 +56,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className={`relative z-10 w-full rounded-3xl border border-white/[0.12] bg-[#0b0f19] p-5 sm:p-8 shadow-2xl backdrop-blur-2xl max-h-[92vh] overflow-y-auto text-left ${
-            isEdgeAi ? 'max-w-5xl' : 'max-w-3xl'
-          }`}
+          className="relative z-10 w-full max-w-3xl rounded-3xl border border-white/[0.12] bg-[#0b0f19] p-5 sm:p-8 shadow-2xl backdrop-blur-2xl max-h-[92vh] overflow-y-auto text-left"
         >
           {/* Top Bar: Status, Category, Close */}
           <div className="flex items-center justify-between pb-4 border-b border-white/[0.08] mb-6">
@@ -71,7 +66,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 <span>{project.status || 'PRODUCTION'}</span>
               </span>
               <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider px-2 py-0.5 rounded-md border border-white/[0.06] bg-white/[0.02]">
-                PROJECT BLUEPRINT
+                PROJECT SPECIFICATION
               </span>
             </div>
 
@@ -84,89 +79,80 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </button>
           </div>
 
-          {/* If Edge AI Project, embed the rich interactive Live Monitor suite! */}
-          {isEdgeAi ? (
-            <div className="space-y-6">
-              <EdgeAiLiveMonitor
-                initialLatency={project.latency_ms || 14.5}
-                initialAccuracy={project.accuracy_pct || 84.6}
-                initialPower={project.power_draw_w || 7.5}
-              />
+          {/* Project Title & Tagline */}
+          <div className="space-y-2 mb-6">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              {project.title}
+            </h2>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              {project.tagline}
+            </p>
+          </div>
+
+          {/* WHAT EXACTLY IS THIS FOR? (Mission & Purpose) */}
+          <div className="mb-6 rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-950/20 via-indigo-950/15 to-[#0b0f19] p-5 sm:p-6 relative overflow-hidden">
+            <div className="flex items-center gap-2.5 text-purple-300 font-bold text-xs uppercase tracking-wider font-mono mb-2.5">
+              <Target className="h-4 w-4 text-purple-400" />
+              <span>What Exactly Is This For?</span>
             </div>
-          ) : (
-            <>
-              {/* Project Title & Tagline */}
-              <div className="space-y-2 mb-6">
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                  {project.title}
-                </h2>
-                <p className="text-slate-300 text-sm leading-relaxed">
-                  {project.tagline}
-                </p>
-              </div>
+            <p className="text-slate-200 text-xs sm:text-sm leading-relaxed">
+              {project.what_is_it_for}
+            </p>
+          </div>
 
-              {/* WHAT EXACTLY IS THIS FOR? (Mission & Problem Statement) */}
-              <div className="mb-6 rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-950/20 via-indigo-950/15 to-[#0b0f19] p-5 sm:p-6 relative overflow-hidden">
-                <div className="flex items-center gap-2.5 text-purple-300 font-bold text-xs uppercase tracking-wider font-mono mb-2.5">
-                  <Target className="h-4 w-4 text-purple-400" />
-                  <span>What Exactly Is This For?</span>
-                </div>
-                <p className="text-slate-200 text-xs sm:text-sm leading-relaxed">
-                  {project.what_is_it_for}
-                </p>
+          {/* ARCHITECTURE & SYSTEM DESIGN */}
+          {project.architecture_summary && (
+            <div className="mb-6 space-y-2.5">
+              <div className="flex items-center gap-2 text-slate-300 font-semibold text-xs uppercase tracking-wider font-mono">
+                <Layers className="h-4 w-4 text-blue-400" />
+                <span>Architecture &amp; Implementation</span>
               </div>
-
-              {/* ARCHITECTURE & SYSTEM DESIGN */}
-              <div className="mb-6 space-y-2.5">
-                <div className="flex items-center gap-2 text-slate-300 font-semibold text-xs uppercase tracking-wider font-mono">
-                  <Layers className="h-4 w-4 text-blue-400" />
-                  <span>Architecture &amp; Engineering Specs</span>
-                </div>
-                <div className="rounded-2xl border border-white/[0.08] bg-[#030712]/70 p-4 sm:p-5 text-slate-300 text-xs sm:text-sm leading-relaxed">
-                  {project.architecture_summary}
-                </div>
+              <div className="rounded-2xl border border-white/[0.08] bg-[#030712]/70 p-4 sm:p-5 text-slate-300 text-xs sm:text-sm leading-relaxed">
+                {project.architecture_summary}
               </div>
+            </div>
+          )}
 
-              {/* TELEMETRY BENCHMARKS */}
-              {project.metrics && project.metrics.length > 0 && (
-                <div className="mb-6 space-y-2.5">
-                  <div className="flex items-center gap-2 text-slate-300 font-semibold text-xs uppercase tracking-wider font-mono">
-                    <Activity className="h-4 w-4 text-emerald-400" />
-                    <span>Performance Benchmarks &amp; Telemetry</span>
+          {/* BENCHMARKS & METRICS */}
+          {project.metrics && project.metrics.length > 0 && (
+            <div className="mb-6 space-y-2.5">
+              <div className="flex items-center gap-2 text-slate-300 font-semibold text-xs uppercase tracking-wider font-mono">
+                <Activity className="h-4 w-4 text-emerald-400" />
+                <span>Metrics &amp; Telemetry</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {project.metrics.map((m, idx) => (
+                  <div key={idx} className="p-3.5 rounded-xl border border-white/[0.06] bg-black/40 font-mono">
+                    <div className="text-[10px] text-slate-400 uppercase tracking-wider truncate mb-1">
+                      {m.label}
+                    </div>
+                    <div className="text-base sm:text-lg font-black text-purple-300">
+                      {m.value}
+                    </div>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {project.metrics.map((m, idx) => (
-                      <div key={idx} className="p-3.5 rounded-xl border border-white/[0.06] bg-black/40 font-mono">
-                        <div className="text-[10px] text-slate-400 uppercase tracking-wider truncate mb-1">
-                          {m.label}
-                        </div>
-                        <div className="text-base sm:text-lg font-black text-purple-300">
-                          {m.value}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* TECH STACK PILLS */}
-              <div className="mb-8 space-y-2.5">
-                <div className="flex items-center gap-2 text-slate-300 font-semibold text-xs uppercase tracking-wider font-mono">
-                  <Cpu className="h-4 w-4 text-amber-400" />
-                  <span>Technology Stack</span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {project.stack.map((t) => (
-                    <span
-                      key={t}
-                      className="px-3 py-1.5 rounded-xl border border-white/[0.1] bg-white/[0.04] text-xs font-mono text-slate-200"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+                ))}
               </div>
-            </>
+            </div>
+          )}
+
+          {/* TECH STACK PILLS */}
+          {project.stack && project.stack.length > 0 && (
+            <div className="mb-8 space-y-2.5">
+              <div className="flex items-center gap-2 text-slate-300 font-semibold text-xs uppercase tracking-wider font-mono">
+                <Cpu className="h-4 w-4 text-amber-400" />
+                <span>Technology Stack</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {project.stack.map((t) => (
+                  <span
+                    key={t}
+                    className="px-3 py-1.5 rounded-xl border border-white/[0.1] bg-white/[0.04] text-xs font-mono text-slate-200"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
           )}
 
           {/* MODAL ACTION BUTTONS */}

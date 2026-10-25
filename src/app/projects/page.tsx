@@ -40,27 +40,6 @@ export default function ProjectsPage() {
     fetchSyncedProjects();
   }, []);
 
-  const getProjectImage = (slug: string, idx: number) => {
-    if (slug.includes('railway')) {
-      return 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80';
-    } else if (slug.includes('rag') || slug.includes('multimodal')) {
-      return 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80';
-    } else if (slug.includes('edge') || slug.includes('alert')) {
-      return 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80';
-    } else if (slug.includes('spendsmart') || slug.includes('finance')) {
-      return 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80';
-    } else if (slug.includes('relieflink') || slug.includes('disaster')) {
-      return 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80';
-    } else if (slug.includes('eduresearch') || slug.includes('agent')) {
-      return 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80';
-    }
-    return [
-      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=800&q=80'
-    ][idx % 3];
-  };
-
   const filteredProjects = projects.filter((p) => {
     const matchesSearch = 
       p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -163,77 +142,84 @@ export default function ProjectsPage() {
             <SpotlightCard
               key={project.id || project.slug}
               onClick={() => setSelectedProject(project)}
-              className="flex flex-col justify-between group cursor-pointer hover:border-purple-500/40 transition-all"
+              className="flex flex-col justify-between group cursor-pointer hover:border-purple-500/40 transition-all p-6 rounded-2xl bg-[#0b0f19]/80 border border-white/[0.08]"
             >
-              <div>
-                {/* Thumbnail */}
-                <div className="relative h-48 w-full overflow-hidden rounded-t-xl bg-slate-900">
-                  <img
-                    src={getProjectImage(project.slug, idx)}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-90" />
-                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md border border-white/10 bg-black/60 backdrop-blur-md text-[10px] font-mono text-emerald-400">
-                    ● {project.status || 'PRODUCTION'}
-                  </div>
+              <div className="space-y-4">
+                {/* Top Bar: Status Badge and Category */}
+                <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-mono text-[10px] font-semibold">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>● {project.status || 'PRODUCTION'}</span>
+                  </span>
 
-                  {/* Hover Prompt */}
-                  <div className="absolute bottom-2 left-3 text-[10px] font-mono text-purple-300 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                    <Target className="h-3 w-3" />
-                    <span>Click to view what it's for</span>
-                  </div>
+                  <span className="font-mono text-[10px] text-slate-500 uppercase tracking-wider">
+                    {project.repo_url ? 'GITHUB REPO' : 'SYSTEM ARCHITECTURE'}
+                  </span>
                 </div>
 
-                {/* Body */}
-                <div className="p-6 space-y-3">
+                {/* Title & Tagline */}
+                <div className="space-y-1.5">
                   <h3 className="font-bold text-lg text-white group-hover:text-purple-300 transition-colors">
                     {project.title}
                   </h3>
-
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.stack.slice(0, 4).map((t) => (
-                      <span key={t} className="tech-pill text-[10px]">
-                        {t}
-                      </span>
-                    ))}
-                    {project.stack.length > 4 && (
-                      <span className="tech-pill text-[10px] opacity-70">
-                        +{project.stack.length - 4}
-                      </span>
-                    )}
-                  </div>
-
-                  <p className="text-slate-400 text-xs leading-relaxed line-clamp-3">
-                    {project.what_is_it_for || project.tagline}
+                  <p className="text-slate-400 text-xs leading-relaxed line-clamp-2">
+                    {project.tagline}
                   </p>
+                </div>
 
-                  {/* Benchmark Metrics */}
-                  {project.metrics && project.metrics.length > 0 && (
-                    <div className="pt-2 border-t border-white/[0.06] grid grid-cols-2 gap-2 font-mono">
-                      {project.metrics.slice(0, 2).map((m: any, mIdx: number) => (
-                        <div key={mIdx} className="p-2 rounded-lg bg-black/40 border border-white/[0.04]">
-                          <div className="text-[10px] text-slate-500 uppercase truncate">{m.label}</div>
-                          <div className="text-xs font-bold text-purple-300">{m.value}</div>
-                        </div>
-                      ))}
-                    </div>
+                {/* Tech Stack Pills */}
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {project.stack.slice(0, 4).map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2.5 py-1 rounded-lg border border-white/[0.08] bg-white/[0.03] text-[11px] font-mono text-slate-300"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  {project.stack.length > 4 && (
+                    <span className="px-2 py-1 rounded-lg border border-white/[0.04] bg-white/[0.02] text-[11px] font-mono text-slate-500">
+                      +{project.stack.length - 4}
+                    </span>
                   )}
                 </div>
+
+                {/* What It Is Built For */}
+                <div className="rounded-xl border border-white/[0.06] bg-black/30 p-3.5 space-y-1">
+                  <div className="flex items-center gap-1.5 text-purple-400 font-mono text-[10px] font-semibold uppercase tracking-wider">
+                    <Target className="h-3 w-3" />
+                    <span>What It Is Built For</span>
+                  </div>
+                  <p className="text-slate-300 text-xs leading-relaxed line-clamp-3">
+                    {project.what_is_it_for || project.architecture_summary}
+                  </p>
+                </div>
+
+                {/* Benchmark Metrics */}
+                {project.metrics && project.metrics.length > 0 && (
+                  <div className="grid grid-cols-2 gap-2 pt-1 font-mono">
+                    {project.metrics.slice(0, 2).map((m: any, mIdx: number) => (
+                      <div key={mIdx} className="p-2 rounded-lg bg-black/40 border border-white/[0.04]">
+                        <div className="text-[10px] text-slate-500 uppercase truncate">{m.label}</div>
+                        <div className="text-xs font-bold text-purple-300 truncate">{m.value}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Footer */}
-              <div className="p-6 pt-0 border-t border-white/[0.06] flex items-center justify-between">
+              <div className="pt-4 border-t border-white/[0.06] mt-5 flex items-center justify-between font-mono text-xs">
                 <button
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     setSelectedProject(project);
                   }}
-                  className="inline-flex items-center gap-1.5 text-purple-400 hover:text-purple-300 text-xs font-semibold"
+                  className="inline-flex items-center gap-1.5 text-purple-400 hover:text-purple-300 font-sans text-xs font-semibold group/btn"
                 >
                   <span>Inspect Blueprint</span>
-                  <ArrowRight className="h-3 w-3" />
+                  <ArrowRight className="h-3.5 w-3.5 group-hover/btn:translate-x-1 transition-transform" />
                 </button>
 
                 <div className="flex items-center gap-1.5">
@@ -243,10 +229,11 @@ export default function ProjectsPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-400 hover:bg-white/[0.06] transition-colors"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-slate-300 hover:text-emerald-400 hover:bg-emerald-500/10 border border-white/[0.08] hover:border-emerald-500/30 transition-all text-xs"
                       title="Live Demo"
                     >
-                      <ExternalLink className="h-4 w-4" />
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      <span className="font-sans text-[11px]">Demo</span>
                     </a>
                   )}
 
@@ -256,10 +243,11 @@ export default function ProjectsPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-slate-300 hover:text-white hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/20 transition-all text-xs"
                       title="GitHub Repository"
                     >
-                      <Github className="h-4 w-4" />
+                      <Github className="h-3.5 w-3.5" />
+                      <span className="font-sans text-[11px]">Code</span>
                     </a>
                   )}
                 </div>
