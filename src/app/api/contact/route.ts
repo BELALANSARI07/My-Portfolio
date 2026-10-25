@@ -35,7 +35,9 @@ export async function POST(req: NextRequest) {
 
     // 2. Direct Inbox Dispatch via Resend
     const resendApiKey = process.env.RESEND_API_KEY;
-    const destinationEmail = process.env.CONTACT_RECEIVER_EMAIL || 'belalansari000078@gmail.com';
+    // Strict destination: Resend sandbox domain onboarding@resend.dev requires the recipient
+    // to strictly match the registered Resend account email (belalansari000078@gmail.com)
+    const destinationEmail = 'belalansari000078@gmail.com';
 
     if (!resendApiKey) {
       console.warn('RESEND_API_KEY is not configured in environment variables.');
