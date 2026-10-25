@@ -2,18 +2,24 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, ChevronLeft, ChevronRight, ArrowRight, Sparkles } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight, Sparkles, Target } from 'lucide-react';
 import { Project } from '@/types/database.types';
 import SpotlightCard from '@/components/ui/SpotlightCard';
+import ProjectModal from '@/components/ui/ProjectModal';
+import { EnrichedProject, mergeWithEnrichedProjects } from '@/data/projects';
+import Link from 'next/link';
 
 interface CosmicProjectsProps {
   projects: Project[];
 }
 
 export default function CosmicProjects({ projects }: CosmicProjectsProps) {
-  const [scrollIdx, setScrollIdx] = useState(0);
+  const [selectedProject, setSelectedProject] = useState<EnrichedProject | null>(null);
 
-  // Fallback thumbnails with AI/ML visual relevance if none in database
+  // Merge projects with verified repository links and mission purposes
+  const enrichedProjects = mergeWithEnrichedProjects(projects);
+
+  // Fallback thumbnails with AI/ML visual relevance
   const getProjectImage = (slug: string, idx: number) => {
     if (slug.includes('railway')) {
       return 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80';
@@ -21,8 +27,10 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
       return 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80';
     } else if (slug.includes('edge') || slug.includes('alert')) {
       return 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80';
-    } else if (slug.includes('safebite') || slug.includes('food')) {
-      return 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80';
+    } else if (slug.includes('spendsmart') || slug.includes('finance')) {
+      return 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=800&q=80';
+    } else if (slug.includes('relieflink') || slug.includes('disaster')) {
+      return 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=800&q=80';
     }
     return [
       'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
@@ -40,57 +48,37 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-blue-500/20 bg-blue-500/10 text-blue-400 font-mono text-[11px] uppercase tracking-wider mb-2">
               <Sparkles className="h-3 w-3" />
-              <span>FEATURED PROJECTS</span>
+              <span>FEATURED PORTFOLIO PROJECTS</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Projects
+              Applied AI/ML Systems
             </h2>
             <p className="text-slate-400 text-xs sm:text-sm mt-1 max-w-xl">
-              A few projects I've worked on, combining AI/ML with real-world applications.
+              Click any project card to inspect what exactly it is built for, architecture blueprints, and GitHub repositories.
             </p>
           </div>
 
-          {/* Right Controls */}
-          <div className="flex items-center gap-3 self-start md:self-end">
-            <div className="flex items-center gap-1.5">
-              <button 
-                onClick={() => setScrollIdx((prev) => Math.max(0, prev - 1))}
-                className="p-2 rounded-xl border border-white/[0.08] bg-[#0b0f19] text-slate-400 hover:text-white hover:border-purple-500/40 transition-colors"
-                title="Previous"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </button>
-              <button 
-                onClick={() => setScrollIdx((prev) => prev + 1)}
-                className="p-2 rounded-xl border border-white/[0.08] bg-[#0b0f19] text-slate-400 hover:text-white hover:border-purple-500/40 transition-colors"
-                title="Next"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </button>
-            </div>
-
-            <a
-              href="https://github.com/BELALANSARI07"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-xl border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-xs font-medium text-slate-300 hover:text-white hover:border-purple-500/40 hover:bg-white/[0.08] transition-all"
-            >
-              <span>View All Projects</span>
-              <ArrowRight className="h-3.5 w-3.5" />
-            </a>
-          </div>
+          {/* Right Action */}
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-white/[0.1] bg-white/[0.04] px-4 py-2.5 text-xs font-semibold text-slate-300 hover:text-white hover:border-purple-500/40 hover:bg-white/[0.08] transition-all self-start md:self-end"
+          >
+            <span>Explore All Projects &amp; RFCs</span>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
 
         {/* Projects Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {projects.map((project, idx) => (
+          {enrichedProjects.slice(0, 4).map((project, idx) => (
             <SpotlightCard
               key={project.id || project.slug}
               initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.12 }}
-              className="flex flex-col justify-between group"
+              onClick={() => setSelectedProject(project)}
+              className="flex flex-col justify-between group cursor-pointer hover:border-purple-500/40 transition-all"
             >
               <div>
                 {/* Project Image Frame */}
@@ -106,6 +94,12 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
                   <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md border border-white/10 bg-black/60 backdrop-blur-md text-[10px] font-mono text-emerald-400">
                     ● {project.status || 'PRODUCTION'}
                   </div>
+
+                  {/* Quick Blueprint Hint on Hover */}
+                  <div className="absolute bottom-2 left-3 text-[10px] font-mono text-purple-300 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                    <Target className="h-3 w-3" />
+                    <span>Click to view details</span>
+                  </div>
                 </div>
 
                 {/* Card Body */}
@@ -114,7 +108,7 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
                     {project.title}
                   </h3>
 
-                  {/* Tech Pills */}
+                  {/* Tech Stack Pills */}
                   <div className="flex flex-wrap gap-1.5">
                     {project.stack.slice(0, 3).map((tag) => (
                       <span key={tag} className="tech-pill text-[10px]">
@@ -129,50 +123,62 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
                   </div>
 
                   <p className="text-slate-400 text-xs leading-relaxed line-clamp-3">
-                    {project.tagline || project.architecture_summary}
+                    {project.what_is_it_for || project.tagline || project.architecture_summary}
                   </p>
                 </div>
               </div>
 
-              {/* Card Footer Links */}
+              {/* Card Footer: View Details & Direct GitHub Link */}
               <div className="p-5 pt-0 border-t border-white/[0.06] mt-4 flex items-center justify-between font-mono text-xs">
-                {project.live_url ? (
-                  <a
-                    href={project.live_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold group/link"
-                  >
-                    <span>View Project</span>
-                    <ArrowRight className="h-3 w-3 group-hover/link:translate-x-0.5 transition-transform" />
-                  </a>
-                ) : (
-                  <a
-                    href={project.repo_url || `https://github.com/BELALANSARI07/${project.slug}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-blue-400 hover:text-blue-300 font-sans text-xs font-semibold group/link"
-                  >
-                    <span>View Project</span>
-                    <ArrowRight className="h-3 w-3 group-hover/link:translate-x-0.5 transition-transform" />
-                  </a>
-                )}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedProject(project);
+                  }}
+                  className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 font-sans text-xs font-semibold group/btn"
+                >
+                  <span>Inspect Details</span>
+                  <ArrowRight className="h-3 w-3 group-hover/btn:translate-x-0.5 transition-transform" />
+                </button>
 
-                {project.repo_url && (
-                  <a
-                    href={project.repo_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
-                    title="Source Code"
-                  >
-                    <Github className="h-4 w-4" />
-                  </a>
-                )}
+                <div className="flex items-center gap-1">
+                  {project.live_url && (
+                    <a
+                      href={project.live_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-400 hover:bg-white/[0.06] transition-colors"
+                      title="Live Demo"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  )}
+
+                  {project.repo_url && (
+                    <a
+                      href={project.repo_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+                      title="View GitHub Repository"
+                    >
+                      <Github className="h-4 w-4" />
+                    </a>
+                  )}
+                </div>
               </div>
             </SpotlightCard>
           ))}
         </div>
+
+        {/* Interactive Modal */}
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
 
       </div>
     </section>

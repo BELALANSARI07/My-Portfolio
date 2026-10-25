@@ -7,6 +7,7 @@ import CosmicProjects from '@/components/sections/CosmicProjects';
 import CosmicMatrix from '@/components/sections/CosmicMatrix';
 import CosmicFooter from '@/components/sections/CosmicFooter';
 import { Profile, Project, Skill, LeadershipHackathon } from '@/types/database.types';
+import { PORTFOLIO_PROJECTS, mergeWithEnrichedProjects } from '@/data/projects';
 
 const DEFAULT_PROFILE: Profile = {
   id: 'seed-01',
@@ -162,7 +163,7 @@ export const revalidate = 60;
 
 export default async function Home() {
   let profile = DEFAULT_PROFILE;
-  let projects = DEFAULT_PROJECTS;
+  let projects = PORTFOLIO_PROJECTS;
   let skills = DEFAULT_SKILLS;
   let records = DEFAULT_RECORDS;
 
@@ -177,7 +178,7 @@ export default async function Home() {
     ]);
 
     if (profileRes.data) profile = profileRes.data;
-    if (projectsRes.data && projectsRes.data.length > 0) projects = projectsRes.data;
+    if (projectsRes.data && projectsRes.data.length > 0) projects = mergeWithEnrichedProjects(projectsRes.data);
     if (skillsRes.data && skillsRes.data.length > 0) skills = skillsRes.data;
     if (recordsRes.data && recordsRes.data.length > 0) {
       records = recordsRes.data.map((r: any) => {
