@@ -25,14 +25,15 @@ export default function ProgressPage() {
   const [stats, setStats] = useState<any>({
     github: {
       username: 'BELALANSARI07',
-      public_repos: 10,
+      public_repos: 5,
       followers: 2,
       profile_url: 'https://github.com/BELALANSARI07',
       repos: [
-        { name: 'Multi-Modal-RAG-Knowledge-Engine', description: 'Enterprise RAG with late interaction multi-vector embeddings', language: 'Python', stars: 0, url: 'https://github.com/BELALANSARI07/Multi-Modal-RAG-Knowledge-Engine' },
+        { name: 'Edge-AI-Railway-Safety-System', description: 'Autonomous obstacle detection and emergency braking system', language: 'JavaScript', stars: 0, url: 'https://github.com/BELALANSARI07/Edge-AI-Railway-Safety-System' },
+        { name: 'Low-Latency-Edge-AI-Alert-System.', description: 'Quantized sub-15ms edge inference & MQTT dispatch pipeline', language: 'Python', stars: 0, url: 'https://github.com/BELALANSARI07/Low-Latency-Edge-AI-Alert-System.' },
+        { name: 'Multi-Modal-RAG-Knowledge-Engine', description: 'Hybrid multi-vector late-interaction embeddings and dense vector search', language: 'Python', stars: 0, url: 'https://github.com/BELALANSARI07/Multi-Modal-RAG-Knowledge-Engine' },
+        { name: 'relieflink-ai', description: 'Real-time disaster response, SOS tracking and emergency intelligence', language: 'TypeScript', stars: 0, url: 'https://github.com/BELALANSARI07/relieflink-ai' },
         { name: 'My-Portfolio', description: 'Cosmic Glassmorphic Portfolio in Next.js 15 & Supabase', language: 'TypeScript', stars: 1, url: 'https://github.com/BELALANSARI07/My-Portfolio' },
-        { name: 'relieflink-ai', description: 'Disaster response and emergency intelligence framework', language: 'Python', stars: 0, url: 'https://github.com/BELALANSARI07' },
-        { name: 'NeuroFlow-HiDevs', description: 'Neural workflow execution graph and model runtime', language: 'Python', stars: 0, url: 'https://github.com/BELALANSARI07' },
       ],
     },
     codeforces: {

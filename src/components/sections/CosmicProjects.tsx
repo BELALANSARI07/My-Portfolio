@@ -70,7 +70,7 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
                     <span>● {project.status || 'PRODUCTION'}</span>
                   </span>
 
-                  <span className="font-mono text-[10px] text-slate-500 uppercase tracking-wider">
+                  <span className="hidden sm:inline-block font-mono text-[10px] text-slate-500 uppercase tracking-wider">
                     {project.repo_url ? 'GITHUB REPO' : 'SYSTEM ARCHITECTURE'}
                   </span>
                 </div>

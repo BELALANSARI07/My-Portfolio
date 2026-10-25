@@ -30,6 +30,30 @@ export const PORTFOLIO_PROJECTS: EnrichedProject[] = [
     updated_at: new Date().toISOString(),
   },
   {
+    id: 'prj-edge-alert',
+    slug: 'low-latency-edge-ai-alert-system',
+    title: 'Low-Latency Edge AI Alert System',
+    tagline: 'Quantized real-time anomaly detection and alert dispatch pipeline optimized for edge compute hardware.',
+    what_is_it_for: 'Developing an optimized computer vision pipeline to process real-time camera streams on low-power edge hardware (such as Raspberry Pi and Jetson devices). It runs quantized lightweight neural architectures at sub-15ms per frame to trigger instant local alerts without relying on external cloud connectivity.',
+    architecture_summary: 'Targeted for edge environments where cloud latency and internet unreliability are unacceptable. The system ingests 60 FPS video streams, performs on-device resizing, executes FP16/INT8-quantized YOLOv8-nano inference via ONNX Runtime / TensorRT (sub-15ms), runs local NMS post-processing, and triggers instant MQTT telemetry alerts.',
+    architecture_diagram: null,
+    stack: ['PyTorch', 'YOLOv8', 'OpenCV', 'ONNX Runtime', 'Mosquitto (MQTT)', 'FastAPI', 'TensorRT'],
+    metrics: [
+      { label: 'Model Engine', value: 'ONNX / TensorRT' },
+      { label: 'Target Latency', value: '< 15ms' },
+      { label: 'Alert Protocol', value: 'MQTT / WebSockets' },
+    ],
+    repo_url: 'https://github.com/BELALANSARI07/Low-Latency-Edge-AI-Alert-System.',
+    live_url: null,
+    paper_url: null,
+    model_weights_url: null,
+    status: 'PRODUCTION',
+    featured: true,
+    display_order: 2,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+  {
     id: 'prj-rag',
     slug: 'multimodal-rag-knowledge-engine',
     title: 'Multi-Modal RAG Knowledge Engine',
@@ -49,55 +73,7 @@ export const PORTFOLIO_PROJECTS: EnrichedProject[] = [
     model_weights_url: null,
     status: 'PRODUCTION',
     featured: true,
-    display_order: 2,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 'prj-edge-alert',
-    slug: 'low-latency-edge-ai-alert-system',
-    title: 'Low-Latency Edge AI Alert System',
-    tagline: 'Quantized real-time anomaly detection and alert dispatch pipeline optimized for edge compute hardware.',
-    what_is_it_for: 'Developing an optimized computer vision pipeline to process real-time camera streams on low-power edge hardware (such as Raspberry Pi and Jetson devices). It runs quantized lightweight neural architectures at sub-15ms per frame to trigger instant local alerts without relying on external cloud connectivity.',
-    architecture_summary: 'Targeted for edge environments where cloud latency and internet unreliability are unacceptable. The system ingests 60 FPS video streams, performs on-device resizing, executes FP16/INT8-quantized YOLOv8-nano inference via ONNX Runtime / TensorRT (sub-15ms), runs local NMS post-processing, and triggers instant MQTT telemetry alerts.',
-    architecture_diagram: null,
-    stack: ['PyTorch', 'YOLOv8', 'OpenCV', 'ONNX Runtime', 'Mosquitto (MQTT)', 'FastAPI', 'TensorRT'],
-    metrics: [
-      { label: 'Model Engine', value: 'ONNX / TensorRT' },
-      { label: 'Target Latency', value: '< 15ms' },
-      { label: 'Alert Protocol', value: 'MQTT / WebSockets' },
-    ],
-    repo_url: 'https://github.com/BELALANSARI07/-Low-Latency-Edge-AI-Alert-System.',
-    live_url: null,
-    paper_url: null,
-    model_weights_url: null,
-    status: 'PRODUCTION',
-    featured: true,
     display_order: 3,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 'prj-spendsmart',
-    slug: 'spendsmart-ai',
-    title: 'SpendSmart – AI Personal Finance Assistant',
-    tagline: 'Interactive personal finance and budgeting assistant powered by Google Gemini API.',
-    what_is_it_for: 'Helps students and young earners make smarter financial decisions by analyzing daily spending patterns, automatically categorizing expenses, distinguishing needs vs. wants, and delivering customized savings strategies through a friendly, responsive AI interface.',
-    architecture_summary: 'Full-stack web application leveraging Next.js and Google Gemini API for structured semantic extraction from receipt logs and natural language expense descriptions. Features real-time visual charts, budget trend tracking, and actionable savings advice.',
-    architecture_diagram: null,
-    stack: ['Google Gemini API', 'JavaScript', 'Next.js', 'Tailwind CSS', 'Vercel', 'Chart.js'],
-    metrics: [
-      { label: 'Response Latency', value: '1.2s' },
-      { label: 'Expense Categorization', value: '98%' },
-      { label: 'Active Deployment', value: 'Live on Vercel' },
-    ],
-    repo_url: 'https://github.com/BELALANSARI07/SpendSmart-2',
-    live_url: 'https://spend-smart-2.vercel.app',
-    paper_url: null,
-    model_weights_url: null,
-    status: 'PRODUCTION',
-    featured: true,
-    display_order: 4,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   },
@@ -120,32 +96,8 @@ export const PORTFOLIO_PROJECTS: EnrichedProject[] = [
     paper_url: null,
     model_weights_url: null,
     status: 'PRODUCTION',
-    featured: false,
-    display_order: 5,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  },
-  {
-    id: 'prj-eduresearch',
-    slug: 'eduresearch-agent',
-    title: 'EduResearch Autonomous AI Agent',
-    tagline: 'Autonomous research agent that synthesizes academic papers and produces structured literature reviews.',
-    what_is_it_for: 'Accelerates academic research and literature review for computer science and engineering researchers. Given any research topic, the agent crawls arXiv, extracts methodologies, evaluates empirical findings, and constructs a structured comparative synthesis with bibtex citations.',
-    architecture_summary: 'Agentic graph workflow powered by LangGraph and Python. Features multi-step verification: query decomposition -> paper retrieval -> citation graph traversal -> semantic synthesis -> latex review generation.',
-    architecture_diagram: null,
-    stack: ['Python', 'LangGraph', 'LLMs', 'arXiv API', 'Semantic Scholar API', 'PyPDF'],
-    metrics: [
-      { label: 'Review Generation', value: '3.5 min' },
-      { label: 'Citation Accuracy', value: '99.2%' },
-      { label: 'Paper Extraction', value: '100+ pages/min' },
-    ],
-    repo_url: 'https://github.com/BELALANSARI07/EduResearch-Agent',
-    live_url: null,
-    paper_url: null,
-    model_weights_url: null,
-    status: 'RESEARCH',
-    featured: false,
-    display_order: 6,
+    featured: true,
+    display_order: 4,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   },
@@ -157,29 +109,31 @@ export function mergeWithEnrichedProjects(dbProjects: Project[]): EnrichedProjec
     return PORTFOLIO_PROJECTS;
   }
 
-  // Map known DB projects to their enriched metadata
-  const enriched = dbProjects.map((p) => {
-    const match = PORTFOLIO_PROJECTS.find(
-      (ep) =>
-        ep.slug === p.slug ||
-        ep.title.toLowerCase().includes(p.title.toLowerCase().slice(0, 10)) ||
-        p.title.toLowerCase().includes(ep.title.toLowerCase().slice(0, 10))
+  // Filter dbProjects to only those matching our confirmed active portfolio projects
+  const activeSlugs = new Set(PORTFOLIO_PROJECTS.map((p) => p.slug));
+
+  const enriched: EnrichedProject[] = [];
+
+  PORTFOLIO_PROJECTS.forEach((curated) => {
+    const match = dbProjects.find(
+      (p) =>
+        p.slug === curated.slug ||
+        p.title.toLowerCase().includes(curated.title.toLowerCase().slice(0, 10)) ||
+        curated.title.toLowerCase().includes(p.title.toLowerCase().slice(0, 10))
     );
 
-    return {
-      ...p,
-      what_is_it_for: (p as any).what_is_it_for || match?.what_is_it_for || p.architecture_summary || p.tagline,
-      repo_url: (p as any).repo_url || match?.repo_url || 'https://github.com/BELALANSARI07',
-      live_url: (p as any).live_url || match?.live_url,
-      stack: p.stack && p.stack.length > 0 ? p.stack : match?.stack || [],
-      metrics: p.metrics && p.metrics.length > 0 ? p.metrics : match?.metrics || [],
-    } as EnrichedProject;
-  });
-
-  // Also include any enriched projects not present in the DB
-  PORTFOLIO_PROJECTS.forEach((ep) => {
-    if (!enriched.some((p) => p.slug === ep.slug || p.title.toLowerCase().includes(ep.title.toLowerCase().slice(0, 10)))) {
-      enriched.push(ep);
+    if (match) {
+      enriched.push({
+        ...curated,
+        ...match,
+        what_is_it_for: (match as any).what_is_it_for || curated.what_is_it_for,
+        repo_url: curated.repo_url, // Preserve curated GitHub repo
+        live_url: match.live_url || curated.live_url,
+        stack: match.stack && match.stack.length > 0 ? match.stack : curated.stack,
+        metrics: match.metrics && match.metrics.length > 0 ? match.metrics : curated.metrics,
+      });
+    } else {
+      enriched.push(curated);
     }
   });
 

@@ -50,9 +50,9 @@ export default function CosmicBackground() {
         }}
       />
 
-      {/* Interactive Cursor Spotlight */}
+      {/* Interactive Cursor Spotlight (Desktop only, hidden on mobile touchscreens) */}
       <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full blur-[90px] opacity-20 pointer-events-none"
+        className="hidden md:block absolute w-[500px] h-[500px] rounded-full blur-[90px] opacity-20 pointer-events-none"
         style={{
           x: smoothX,
           y: smoothY,

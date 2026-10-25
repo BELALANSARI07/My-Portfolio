@@ -26,7 +26,7 @@ const EXCLUDED_REPOS = new Set([
 
 /**
  * Format raw repository names into clean, readable titles.
- * E.g. "-Low-Latency-Edge-AI-Alert-System." -> "Low Latency Edge AI Alert System"
+ * E.g. "Low-Latency-Edge-AI-Alert-System." -> "Low-Latency Edge AI Alert System"
  */
 export function formatRepoTitle(repoName: string): string {
   return repoName
@@ -117,7 +117,7 @@ export async function fetchGitHubRepos(username = 'BELALANSARI07'): Promise<GitH
     if (!Array.isArray(repos)) return [];
 
     return repos.filter(
-      (r) => !r.fork && !EXCLUDED_REPOS.has(r.name.toLowerCase())
+      (r) => !r.fork && !EXCLUDED_REPOS.has(r.name.toLowerCase().replace(/\.+$/, ''))
     );
   } catch (error) {
     console.warn('[GitHub Sync] Error fetching GitHub repos (using fallback):', error);
@@ -128,6 +128,7 @@ export async function fetchGitHubRepos(username = 'BELALANSARI07'): Promise<GitH
 /**
  * Merge GitHub repositories with curated projects.
  * Existing curated projects retain their rich benchmarks and architectural notes.
+ * Curated projects that no longer exist on GitHub are automatically removed.
  * Any new repository created on GitHub is automatically appended as a live project card.
  */
 export function mergeGitHubWithCurated(
@@ -139,9 +140,10 @@ export function mergeGitHubWithCurated(
   }
 
   const matchedGhRepoIds = new Set<number>();
+  const mergedCurated: EnrichedProject[] = [];
 
-  // 1. Enrich existing curated projects with GitHub live data (stars, repo_url, homepage)
-  const mergedCurated = curated.map((curatedProj) => {
+  // 1. Only keep curated projects that exist in current GitHub public repositories
+  curated.forEach((curatedProj) => {
     const cleanCuratedSlug = curatedProj.slug.replace(/[^a-z0-9]/gi, '').toLowerCase();
 
     const matchedRepo = ghRepos.find((r) => {
@@ -158,15 +160,13 @@ export function mergeGitHubWithCurated(
 
     if (matchedRepo) {
       matchedGhRepoIds.add(matchedRepo.id);
-      return {
+      mergedCurated.push({
         ...curatedProj,
         repo_url: matchedRepo.html_url,
         live_url: matchedRepo.homepage || curatedProj.live_url,
         updated_at: matchedRepo.pushed_at || curatedProj.updated_at,
-      };
+      });
     }
-
-    return curatedProj;
   });
 
   // 2. Add all new GitHub repositories that aren't yet in curated list
@@ -206,7 +206,7 @@ export function mergeGitHubWithCurated(
       paper_url: null,
       model_weights_url: null,
       status: 'PRODUCTION',
-      featured: false,
+      featured: true,
       display_order: 10 + idx,
       created_at: r.created_at || new Date().toISOString(),
       updated_at: r.pushed_at || new Date().toISOString(),

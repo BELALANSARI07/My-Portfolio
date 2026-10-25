@@ -7,7 +7,7 @@ export async function GET() {
     // 1. Fetch GitHub Stats
     let githubData = {
       username: 'BELALANSARI07',
-      public_repos: 10,
+      public_repos: 5,
       followers: 2,
       following: 2,
       avatar_url: 'https://avatars.githubusercontent.com/u/144673673?v=4',

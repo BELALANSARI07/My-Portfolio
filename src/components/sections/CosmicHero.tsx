@@ -11,8 +11,6 @@ import {
   Sparkles, 
   Eye, 
   Hexagon, 
-  Terminal,
-  Code2
 } from 'lucide-react';
 import { Profile } from '@/types/database.types';
 
@@ -56,19 +54,73 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
   }, [displayText, isDeleting, currentPhraseIdx]);
 
   return (
-    <section id="home" className="relative min-h-[92vh] pt-28 pb-16 flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-[90vh] pt-24 sm:pt-28 pb-12 sm:pb-16 flex items-center justify-center overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 lg:gap-8 items-center">
           
-          {/* Left Column: Headline, Bio & Primary CTAs */}
+          {/* 1. Profile Avatar (order-1 on mobile so picture is first, order-2 on desktop center) */}
           <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="order-1 lg:order-2 lg:col-span-4 flex items-center justify-center relative min-h-[240px] sm:min-h-[340px] lg:min-h-[420px] my-1 sm:my-3 lg:my-0"
+          >
+            {/* Cosmic Orbital Halo Rings (Desktop/Tablet only to keep mobile super clean and fast) */}
+            <div className="hidden sm:block absolute w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] rounded-full border border-purple-500/30 shadow-[0_0_60px_rgba(139,92,246,0.3)] animate-spin-slow pointer-events-none" />
+            <div className="hidden sm:block absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] rounded-full border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.2)] pointer-events-none" />
+
+            {/* Glowing Backdrop behind Avatar */}
+            <div className="absolute w-44 h-44 sm:w-64 sm:h-64 rounded-full bg-gradient-to-tr from-blue-600/30 to-purple-600/30 blur-2xl pointer-events-none" />
+
+            {/* Profile Avatar Frame (Responsive: perfectly sized on mobile) */}
+            <div className="relative z-10 w-44 h-56 sm:w-64 sm:h-80 lg:w-72 lg:h-96 rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-white/10 to-transparent backdrop-blur-md shadow-2xl">
+              <img
+                src={profile.avatar_url || "/belal-ansari.png"}
+                alt={profile.full_name}
+                className="w-full h-full object-cover object-top opacity-95 contrast-[1.05]"
+              />
+              {/* Subtle Bottom Vignette Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-80" />
+            </div>
+
+            {/* Floating Glass Pills (Hidden on mobile phones to prevent cluttering portrait, visible on md+) */}
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+              className="hidden md:flex absolute -top-2 left-0 sm:-left-8 z-20 items-center gap-2 rounded-xl border border-purple-500/30 bg-[#0b0f19]/90 px-3.5 py-2 text-xs font-medium text-white shadow-lg shadow-purple-500/20 backdrop-blur-xl"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+              <span>Generative AI</span>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              className="hidden md:flex absolute top-1/2 -left-2 sm:-left-12 -translate-y-1/2 z-20 items-center gap-2 rounded-xl border border-blue-500/30 bg-[#0b0f19]/90 px-3.5 py-2 text-xs font-medium text-white shadow-lg shadow-blue-500/20 backdrop-blur-xl"
+            >
+              <Eye className="h-3.5 w-3.5 text-blue-400" />
+              <span>Computer Vision</span>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="hidden md:flex absolute -bottom-2 right-0 sm:right-auto sm:-left-6 z-20 items-center gap-2 rounded-xl border border-cyan-500/30 bg-[#0b0f19]/90 px-3.5 py-2 text-xs font-medium text-white shadow-lg shadow-cyan-500/20 backdrop-blur-xl"
+            >
+              <Hexagon className="h-3.5 w-3.5 text-cyan-400" />
+              <span>Real-world Apps</span>
+            </motion.div>
+          </motion.div>
+
+          {/* 2. Headline, Bio & Primary CTAs (order-2 on mobile right below photo, order-1 on desktop left) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="lg:col-span-5 space-y-6 text-left"
+            className="order-2 lg:order-1 lg:col-span-5 space-y-4 sm:space-y-6 text-center lg:text-left"
           >
             {/* Category Tag */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/20 bg-blue-500/[0.06] text-blue-300 font-mono text-[11px] uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/20 bg-blue-500/[0.06] text-blue-300 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest">
               <span>AI/ML ENGINEER</span>
               <span>•</span>
               <span>STUDENT</span>
@@ -78,10 +130,10 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
 
             {/* Display Title with Vibrant Gradient */}
             <div className="space-y-1">
-              <h2 className="text-2xl sm:text-4xl text-white font-normal tracking-tight">
+              <h2 className="text-xl sm:text-3xl lg:text-4xl text-slate-300 font-normal tracking-tight">
                 Hi, I'm
               </h2>
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight">
+              <h1 className="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight">
                 <span className="text-white">Belal </span>
                 <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(168,85,247,0.35)]">
                   Ansari
@@ -90,20 +142,20 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
             </div>
 
             {/* Dynamic Typing Sub-headline */}
-            <div className="min-h-[58px] sm:min-h-[52px]">
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-sans">
+            <div className="min-h-[48px] sm:min-h-[52px] flex items-center justify-center lg:justify-start">
+              <p className="text-slate-300 text-xs sm:text-base leading-relaxed font-sans">
                 {displayText}
                 <span className="typing-cursor" />
               </p>
             </div>
 
-            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-lg">
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-lg mx-auto lg:mx-0">
               {profile.bio || "I build intelligent systems at the intersection of Generative AI, Computer Vision, and real-world applications."}
             </p>
 
             {/* Action Buttons & Social Icons */}
-            <div className="pt-2 space-y-5">
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+            <div className="pt-1 sm:pt-2 space-y-4 sm:space-y-5">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 w-full sm:w-auto">
                 <Link
                   href="/projects"
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-6 py-3.5 sm:py-3 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all text-center"
@@ -121,7 +173,7 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
               </div>
 
               {/* Social Channels Row */}
-              <div className="flex items-center gap-3 pt-1">
+              <div className="flex items-center justify-center lg:justify-start gap-3 pt-1">
                 {profile.github_url && (
                   <a
                     href={profile.github_url}
@@ -155,72 +207,15 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
             </div>
           </motion.div>
 
-          {/* Center Column: Portrait with Cosmic Ring & Floating Pills */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="lg:col-span-4 flex items-center justify-center relative min-h-[360px] sm:min-h-[420px] my-4 lg:my-0"
-          >
-            {/* Cosmic Orbital Halo Ring */}
-            <div className="absolute w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] rounded-full border border-purple-500/30 shadow-[0_0_60px_rgba(139,92,246,0.3)] animate-spin-slow pointer-events-none" />
-            <div className="absolute w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] rounded-full border border-blue-500/20 shadow-[0_0_40px_rgba(59,130,246,0.2)] pointer-events-none" />
-
-            {/* Glowing Backdrop behind Avatar */}
-            <div className="absolute w-52 h-52 sm:w-64 sm:h-64 rounded-full bg-gradient-to-tr from-blue-600/30 to-purple-600/30 blur-2xl pointer-events-none" />
-
-            {/* Profile Avatar Card / Frame */}
-            <div className="relative z-10 w-56 h-72 sm:w-72 sm:h-96 rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-white/10 to-transparent backdrop-blur-md shadow-2xl">
-              <img
-                src={profile.avatar_url || "/belal-ansari.png"}
-                alt={profile.full_name}
-                className="w-full h-full object-cover object-top opacity-95 contrast-[1.05]"
-              />
-              {/* Subtle Bottom Vignette Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-80" />
-            </div>
-
-            {/* Floating Glass Pill 1: Generative AI */}
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-2 left-0 sm:-left-8 z-20 flex items-center gap-1.5 sm:gap-2 rounded-xl border border-purple-500/30 bg-[#0b0f19]/90 px-3 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-medium text-white shadow-lg shadow-purple-500/20 backdrop-blur-xl"
-            >
-              <Sparkles className="h-3.5 w-3.5 text-purple-400" />
-              <span>Generative AI</span>
-            </motion.div>
-
-            {/* Floating Glass Pill 2: Computer Vision */}
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="absolute top-1/2 -left-2 sm:-left-12 -translate-y-1/2 z-20 flex items-center gap-1.5 sm:gap-2 rounded-xl border border-blue-500/30 bg-[#0b0f19]/90 px-3 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-medium text-white shadow-lg shadow-blue-500/20 backdrop-blur-xl"
-            >
-              <Eye className="h-3.5 w-3.5 text-blue-400" />
-              <span>Computer Vision</span>
-            </motion.div>
-
-            {/* Floating Glass Pill 3: Real-world Apps */}
-            <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute -bottom-2 right-0 sm:right-auto sm:-left-6 z-20 flex items-center gap-1.5 sm:gap-2 rounded-xl border border-cyan-500/30 bg-[#0b0f19]/90 px-3 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-medium text-white shadow-lg shadow-cyan-500/20 backdrop-blur-xl"
-            >
-              <Hexagon className="h-3.5 w-3.5 text-cyan-400" />
-              <span>Real-world Apps</span>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Column: Floating Code Window & Currently Exploring Radar */}
+          {/* 3. Right Column: Floating Code Window & Currently Exploring Radar (Desktop Only - hidden on mobile to eliminate clutter) */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="lg:col-span-3 space-y-6"
+            className="hidden lg:block lg:order-3 lg:col-span-3 space-y-6"
           >
             {/* Floating Code Editor Box */}
             <div className="relative group">
-              {/* Handwritten-Style Italic Accent */}
               <div className="text-right text-xs font-sans italic text-slate-400 mb-1 tracking-wide">
                 Build • Learn • Solve • Repeat
               </div>
