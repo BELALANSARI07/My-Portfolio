@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { 
   ArrowRight, 
@@ -103,20 +104,20 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
             {/* Action Buttons & Social Icons */}
             <div className="pt-2 space-y-5">
               <div className="flex flex-wrap items-center gap-4">
-                <a
-                  href="#projects"
+                <Link
+                  href="/projects"
                   className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-6 py-3 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all"
                 >
                   <span>View My Work</span>
                   <ArrowRight className="h-4 w-4" />
-                </a>
+                </Link>
 
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   className="inline-flex items-center gap-2 rounded-xl border border-white/[0.12] bg-[#0b0f19]/80 px-6 py-3 text-xs sm:text-sm font-semibold text-slate-200 backdrop-blur-md hover:bg-white/[0.08] hover:border-purple-500/40 hover:text-white transition-all shadow-sm"
                 >
                   <span>Contact Me</span>
-                </a>
+                </Link>
               </div>
 
               {/* Social Channels Row */}
