@@ -146,12 +146,12 @@ const DEFAULT_SKILLS: Skill[] = [
 const DEFAULT_RECORDS: LeadershipHackathon[] = [
   {
     id: 'rec-1',
-    title: 'National Smart Transportation AI Challenge',
-    role_or_award: 'Finalist & Outstanding Prototype Award',
-    organization: 'Ministry of Transport / Tech Consortium',
-    date_str: 'OCT 2025',
-    summary: 'Architected and demonstrated the Railway Object Detection & Emergency Stop prototype evaluated against real track telemetry feeds.',
-    metrics: 'Top 3% of 800+ national submissions',
+    title: 'Makers Conclave by NIAT',
+    role_or_award: 'Finalist',
+    organization: 'NIAT (NxtWave of Innovation in Advanced Technologies)',
+    date_str: '2025',
+    summary: 'Selected as a Finalist at the Makers Conclave by NIAT for architecting and demonstrating the AI-powered Railway Object Detection & Emergency Stop prototype.',
+    metrics: 'Finalist • Railway AI Prototype',
     evidence_url: 'https://github.com/BELALANSARI07',
     display_order: 1,
     created_at: '',

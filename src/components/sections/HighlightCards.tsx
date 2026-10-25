@@ -8,10 +8,10 @@ import Link from 'next/link';
 export default function HighlightCards() {
   const highlights = [
     {
-      metric: 'Top 3%',
-      title: 'National AI Finalist',
-      tag: 'Award Winner',
-      desc: 'Selected out of 800+ national teams for Railway Object Detection & Emergency Stop prototype.',
+      metric: 'Finalist',
+      title: 'Makers Conclave by NIAT',
+      tag: 'Railway AI Prototype',
+      desc: 'Selected as a Finalist for architecting real-time Railway Object Detection & Emergency Stop system.',
       icon: Trophy,
       color: 'text-amber-400',
       bgColor: 'bg-amber-500/10 border-amber-500/20',

@@ -387,12 +387,12 @@ ON CONFLICT DO NOTHING;
 -- 5.4 Sample Leadership & Achievements Seed
 INSERT INTO public.leadership_hackathons (title, role_or_award, organization, date_str, summary, metrics, display_order) VALUES
 (
-    'National Smart Transportation AI Challenge',
-    'Finalist & Outstanding Prototype Award',
-    'Ministry of Transport / Tech Consortium',
-    'OCT 2025',
-    'Architected and demonstrated the Railway Object Detection & Emergency Stop prototype evaluated against real track telemetry video feeds.',
-    'Top 3% of 800+ national submissions',
+    'Makers Conclave by NIAT',
+    'Finalist',
+    'NIAT (NxtWave of Innovation in Advanced Technologies)',
+    '2025',
+    'Selected as a Finalist at the Makers Conclave by NIAT for architecting and demonstrating the AI-powered Railway Object Detection & Emergency Stop prototype.',
+    'Finalist • Railway Prototype',
     1
 ),
 (

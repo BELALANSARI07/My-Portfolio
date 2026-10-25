@@ -7,8 +7,35 @@ import { Trophy, Users, Award, ExternalLink, Sparkles, Calendar, CheckCircle2 } 
 
 export const revalidate = 60;
 
+const DEFAULT_EXPERIENCE_RECORDS: LeadershipHackathon[] = [
+  {
+    id: 'exp-1',
+    title: 'Makers Conclave by NIAT',
+    role_or_award: 'Finalist',
+    organization: 'NIAT (NxtWave of Innovation in Advanced Technologies)',
+    date_str: '2025',
+    summary: 'Selected as a Finalist at the Makers Conclave by NIAT for designing and engineering the Railway Object Detection & Emergency Stop prototype. Implemented real-time computer vision (YOLO) and edge telemetry to detect railway track obstacles and trigger emergency safety protocols.',
+    metrics: 'Finalist • Railway Safety Prototype',
+    evidence_url: 'https://github.com/BELALANSARI07',
+    display_order: 1,
+    created_at: '',
+  },
+  {
+    id: 'exp-2',
+    title: 'Generative AI Student Club',
+    role_or_award: 'Vice President',
+    organization: 'Noida International University',
+    date_str: '2025 – PRESENT',
+    summary: 'Spearheading the university AI community, mentoring 120+ student engineers through hands-on hackathons, LLM fine-tuning sessions, agentic workflows, and computer vision workshops.',
+    metrics: '120+ Students Mentored',
+    evidence_url: 'https://github.com/BELALANSARI07',
+    display_order: 2,
+    created_at: '',
+  },
+];
+
 export default async function ExperiencePage() {
-  let records: LeadershipHackathon[] = [];
+  let records: LeadershipHackathon[] = DEFAULT_EXPERIENCE_RECORDS;
 
   try {
     const supabase = createPublicClient();
