@@ -2,14 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Download, Moon, Shield, Menu, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Download, Moon, Shield, Menu, X, Activity } from 'lucide-react';
 
 interface CosmicNavbarProps {
   resumeUrl?: string | null;
 }
 
 export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
-  const [activeTab, setActiveTab] = useState('Home');
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -22,24 +23,25 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
   }, []);
 
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'Skills', href: '/skills' },
+    { name: 'Progress', href: '/progress', isPulse: true },
+    { name: 'Experience', href: '/experience' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#030712]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/40'
-          : 'bg-transparent border-b border-transparent'
+          ? 'bg-[#030712]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/50'
+          : 'bg-[#030712]/40 backdrop-blur-md border-b border-white/[0.04]'
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Left: Brand Logo & Identity */}
+        {/* Left: Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600/30 to-purple-600/30 border border-purple-500/30 text-white font-bold text-xs tracking-wider shadow-md shadow-purple-500/20 group-hover:border-purple-400 group-hover:scale-105 transition-all">
             BA
@@ -49,31 +51,35 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
           </span>
         </Link>
 
-        {/* Center: Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1 rounded-full border border-white/[0.06] bg-[#0b0f19]/60 backdrop-blur-md px-3 py-1">
+        {/* Center: Real Route Links */}
+        <nav className="hidden md:flex items-center gap-1 rounded-full border border-white/[0.06] bg-[#0b0f19]/70 backdrop-blur-md px-3 py-1">
           {navItems.map((item) => {
-            const isActive = activeTab === item.name;
+            const isActive = pathname === item.href;
             return (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
-                onClick={() => setActiveTab(item.name)}
-                className={`relative px-3.5 py-1.5 text-xs font-medium transition-colors ${
+                className={`relative px-3.5 py-1.5 text-xs font-medium transition-colors flex items-center gap-1.5 ${
                   isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
-                {item.name}
+                <span>{item.name}</span>
+                {item.isPulse && (
+                  <span className="flex h-1.5 w-1.5 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                  </span>
+                )}
                 {isActive && (
                   <span className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
                 )}
-              </a>
+              </Link>
             );
           })}
         </nav>
 
         {/* Right: Actions */}
         <div className="hidden sm:flex items-center gap-3">
-          {/* Subtle Admin Link */}
           <Link
             href="/admin"
             className="p-2 text-slate-400 hover:text-purple-300 transition-colors"
@@ -82,12 +88,10 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
             <Shield className="h-4 w-4" />
           </Link>
 
-          {/* Theme Icon (Visual Accent) */}
-          <div className="p-2 text-slate-400 hover:text-slate-200 cursor-default">
+          <div className="p-2 text-slate-400 hover:text-slate-200 cursor-default" title="Dark Canvas Mode">
             <Moon className="h-4 w-4" />
           </div>
 
-          {/* Download Resume Button */}
           <a
             href={resumeUrl || 'https://drive.google.com/file/d/1XN3kU-m0nC1BwG-H8-7cR-6hG/view'}
             target="_blank"
@@ -99,7 +103,7 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
           </a>
         </div>
 
-        {/* Mobile Hamburger Toggle */}
+        {/* Mobile Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="flex sm:hidden p-2 text-slate-300 hover:text-white"
@@ -110,23 +114,35 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="sm:hidden border-b border-white/[0.08] bg-[#030712]/95 backdrop-blur-2xl px-4 py-4 space-y-3">
-          {navItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              onClick={() => {
-                setActiveTab(item.name);
-                setMobileMenuOpen(false);
-              }}
-              className="block px-3 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-white/[0.04] rounded-lg"
-            >
-              {item.name}
-            </a>
-          ))}
-          <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between">
+        <div className="sm:hidden border-b border-white/[0.08] bg-[#030712]/95 backdrop-blur-2xl px-4 py-4 space-y-2">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`block px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                  isActive
+                    ? 'bg-purple-600/20 text-white font-semibold border border-purple-500/30'
+                    : 'text-slate-300 hover:text-white hover:bg-white/[0.04]'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span>{item.name}</span>
+                  {item.isPulse && (
+                    <span className="text-[10px] font-mono text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded-full bg-emerald-500/10">
+                      LIVE STATS
+                    </span>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
+          <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between">
             <Link
               href="/admin"
+              onClick={() => setMobileMenuOpen(false)}
               className="text-xs text-slate-400 hover:text-purple-300 flex items-center gap-1.5"
             >
               <Shield className="h-3.5 w-3.5" />
