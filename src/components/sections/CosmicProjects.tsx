@@ -10,14 +10,16 @@ import { EnrichedProject, mergeWithEnrichedProjects } from '@/data/projects';
 import Link from 'next/link';
 
 interface CosmicProjectsProps {
-  projects: Project[];
+  projects: (Project | EnrichedProject)[];
 }
 
 export default function CosmicProjects({ projects }: CosmicProjectsProps) {
   const [selectedProject, setSelectedProject] = useState<EnrichedProject | null>(null);
 
-  // Merge projects with verified repository links and mission purposes
-  const enrichedProjects = mergeWithEnrichedProjects(projects);
+  // Use projects directly if already enriched, otherwise merge
+  const enrichedProjects = (projects && projects.length > 0 && (projects[0] as EnrichedProject).what_is_it_for)
+    ? (projects as EnrichedProject[])
+    : mergeWithEnrichedProjects(projects as Project[]);
 
   // Fallback thumbnails with AI/ML visual relevance
   const getProjectImage = (slug: string, idx: number) => {

@@ -6,33 +6,38 @@ import CosmicFooter from '@/components/sections/CosmicFooter';
 import SpotlightCard from '@/components/ui/SpotlightCard';
 import ProjectModal from '@/components/ui/ProjectModal';
 import { Project } from '@/types/database.types';
-import { Sparkles, Search, ExternalLink, Github, Target, ArrowRight } from 'lucide-react';
-import { createClient } from '@/lib/supabase/client';
-import { EnrichedProject, PORTFOLIO_PROJECTS, mergeWithEnrichedProjects } from '@/data/projects';
+import { Sparkles, Search, ExternalLink, Github, Target, ArrowRight, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { EnrichedProject, PORTFOLIO_PROJECTS } from '@/data/projects';
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<EnrichedProject[]>(PORTFOLIO_PROJECTS);
   const [selectedProject, setSelectedProject] = useState<EnrichedProject | null>(null);
   const [filter, setFilter] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [lastSyncedTime, setLastSyncedTime] = useState<string | null>(null);
+
+  const fetchSyncedProjects = async () => {
+    setIsSyncing(true);
+    try {
+      const res = await fetch('/api/projects');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.projects && data.projects.length > 0) {
+          setProjects(data.projects);
+          setLastSyncedTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+          return;
+        }
+      }
+    } catch (e) {
+      console.warn('Project auto-sync fallback:', e);
+    } finally {
+      setIsSyncing(false);
+    }
+  };
 
   useEffect(() => {
-    async function load() {
-      try {
-        const supabase = createClient();
-        const { data } = await supabase
-          .from('projects')
-          .select('*')
-          .order('display_order', { ascending: true });
-        if (data && data.length > 0) {
-          setProjects(mergeWithEnrichedProjects(data as Project[]));
-        }
-      } catch (e) {
-        // Graceful fallback to rich local projects
-        setProjects(PORTFOLIO_PROJECTS);
-      }
-    }
-    load();
+    fetchSyncedProjects();
   }, []);
 
   const getProjectImage = (slug: string, idx: number) => {
@@ -68,6 +73,7 @@ export default function ProjectsPage() {
     if (filter === 'VISION') return p.stack.some(s => s.toLowerCase().includes('yolo') || s.toLowerCase().includes('opencv') || s.toLowerCase().includes('vision'));
     if (filter === 'RAG_LLM') return p.stack.some(s => s.toLowerCase().includes('rag') || s.toLowerCase().includes('transform') || s.toLowerCase().includes('langchain') || s.toLowerCase().includes('gemini'));
     if (filter === 'EDGE') return p.stack.some(s => s.toLowerCase().includes('edge') || s.toLowerCase().includes('tensorrt') || s.toLowerCase().includes('esp32') || s.toLowerCase().includes('c++'));
+    if (filter === 'GITHUB') return Boolean(p.repo_url && p.repo_url.includes('github.com'));
     return true;
   });
 
@@ -77,17 +83,42 @@ export default function ProjectsPage() {
 
       <main className="pt-28 pb-20 relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
         {/* Page Header */}
-        <div className="mb-10 pb-6 border-b border-white/[0.08]">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/20 bg-blue-500/10 text-blue-400 font-mono text-xs uppercase tracking-wider mb-3">
-            <Sparkles className="h-3 w-3" />
-            <span>PORTFOLIO SPECIFICATIONS &amp; BLUEPRINTS</span>
+        <div className="mb-10 pb-6 border-b border-white/[0.08] flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/20 bg-blue-500/10 text-blue-400 font-mono text-xs uppercase tracking-wider mb-3">
+              <Sparkles className="h-3 w-3" />
+              <span>PORTFOLIO SPECIFICATIONS &amp; BLUEPRINTS</span>
+            </div>
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Engineering Projects &amp; Systems
+            </h1>
+            <p className="text-slate-400 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
+              Applied Computer Vision, Multi-Modal RAG architectures, low-latency edge inference, and intelligent autonomous agents. Click any project to inspect its architectural purpose and telemetry.
+            </p>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Engineering Projects &amp; Systems
-          </h1>
-          <p className="text-slate-400 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
-            Applied Computer Vision, Multi-Modal RAG architectures, low-latency edge inference, and intelligent autonomous agents. Click any project to inspect its architectural purpose and telemetry.
-          </p>
+
+          {/* GitHub Auto-Sync Telemetry Badge */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-mono">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span>GitHub Auto-Sync Live</span>
+              <span className="text-slate-500">•</span>
+              <span className="text-slate-300">@BELALANSARI07</span>
+            </div>
+
+            <button
+              onClick={fetchSyncedProjects}
+              disabled={isSyncing}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-white/[0.1] bg-white/[0.04] text-xs font-mono text-slate-300 hover:text-white hover:bg-white/[0.08] transition-all disabled:opacity-50"
+              title="Refresh project list from GitHub"
+            >
+              <RefreshCw className={`h-3 w-3 ${isSyncing ? 'animate-spin text-purple-400' : ''}`} />
+              <span>{isSyncing ? 'Syncing...' : 'Sync GitHub'}</span>
+            </button>
+          </div>
         </div>
 
         {/* Filter and Search Bar */}
@@ -98,6 +129,7 @@ export default function ProjectsPage() {
               { id: 'VISION', label: 'Computer Vision' },
               { id: 'RAG_LLM', label: 'Generative AI & RAG' },
               { id: 'EDGE', label: 'Edge & Embedded' },
+              { id: 'GITHUB', label: 'GitHub Repositories' },
             ].map((tab) => (
               <button
                 key={tab.id}

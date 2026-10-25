@@ -8,6 +8,7 @@ import CosmicMatrix from '@/components/sections/CosmicMatrix';
 import CosmicFooter from '@/components/sections/CosmicFooter';
 import { Profile, Project, Skill, LeadershipHackathon } from '@/types/database.types';
 import { PORTFOLIO_PROJECTS, mergeWithEnrichedProjects } from '@/data/projects';
+import { getSyncedProjects } from '@/lib/github/sync';
 
 const DEFAULT_PROFILE: Profile = {
   id: 'seed-01',
@@ -170,15 +171,17 @@ export default async function Home() {
   try {
     const supabase = createPublicClient();
 
-    const [profileRes, projectsRes, skillsRes, recordsRes] = await Promise.all([
+    const [syncedProjects, profileRes, skillsRes, recordsRes] = await Promise.all([
+      getSyncedProjects(),
       supabase.from('profiles').select('*').single(),
-      supabase.from('projects').select('*').order('display_order', { ascending: true }),
       supabase.from('skills').select('*').order('display_order', { ascending: true }),
       supabase.from('leadership_hackathons').select('*').order('display_order', { ascending: true }),
     ]);
 
+    if (syncedProjects && syncedProjects.length > 0) {
+      projects = syncedProjects;
+    }
     if (profileRes.data) profile = profileRes.data;
-    if (projectsRes.data && projectsRes.data.length > 0) projects = mergeWithEnrichedProjects(projectsRes.data);
     if (skillsRes.data && skillsRes.data.length > 0) skills = skillsRes.data;
     if (recordsRes.data && recordsRes.data.length > 0) {
       records = recordsRes.data.map((r: any) => {

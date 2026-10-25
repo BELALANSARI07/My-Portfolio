@@ -168,9 +168,9 @@ export function mergeWithEnrichedProjects(dbProjects: Project[]): EnrichedProjec
 
     return {
       ...p,
-      what_is_it_for: match?.what_is_it_for || p.architecture_summary || p.tagline,
-      repo_url: match?.repo_url || p.repo_url || 'https://github.com/BELALANSARI07',
-      live_url: match?.live_url || p.live_url,
+      what_is_it_for: (p as any).what_is_it_for || match?.what_is_it_for || p.architecture_summary || p.tagline,
+      repo_url: (p as any).repo_url || match?.repo_url || 'https://github.com/BELALANSARI07',
+      live_url: (p as any).live_url || match?.live_url,
       stack: p.stack && p.stack.length > 0 ? p.stack : match?.stack || [],
       metrics: p.metrics && p.metrics.length > 0 ? p.metrics : match?.metrics || [],
     } as EnrichedProject;
