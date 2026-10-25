@@ -179,7 +179,22 @@ export default async function Home() {
     if (profileRes.data) profile = profileRes.data;
     if (projectsRes.data && projectsRes.data.length > 0) projects = projectsRes.data;
     if (skillsRes.data && skillsRes.data.length > 0) skills = skillsRes.data;
-    if (recordsRes.data && recordsRes.data.length > 0) records = recordsRes.data;
+    if (recordsRes.data && recordsRes.data.length > 0) {
+      records = recordsRes.data.map((r: any) => {
+        if (r.title && (r.title.includes('Transportation') || r.title.includes('National Smart'))) {
+          return {
+            ...r,
+            title: 'Makers Conclave by NIAT',
+            role_or_award: 'Finalist',
+            organization: 'NIAT (NxtWave of Innovation in Advanced Technologies)',
+            date_str: '2025',
+            summary: 'Selected as a Finalist at the Makers Conclave by NIAT for architecting and demonstrating the AI-powered Railway Object Detection & Emergency Stop prototype.',
+            metrics: 'Finalist • Railway Prototype',
+          };
+        }
+        return r;
+      });
+    }
   } catch (err) {
     console.warn('Falling back to local seed data:', err);
   }

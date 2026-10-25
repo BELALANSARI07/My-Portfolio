@@ -40,7 +40,22 @@ export default async function ExperiencePage() {
   try {
     const supabase = createPublicClient();
     const { data } = await supabase.from('leadership_hackathons').select('*').order('display_order', { ascending: true });
-    if (data && data.length > 0) records = data as LeadershipHackathon[];
+    if (data && data.length > 0) {
+      records = (data as LeadershipHackathon[]).map((r) => {
+        if (r.title && (r.title.includes('Transportation') || r.title.includes('National Smart'))) {
+          return {
+            ...r,
+            title: 'Makers Conclave by NIAT',
+            role_or_award: 'Finalist',
+            organization: 'NIAT (NxtWave of Innovation in Advanced Technologies)',
+            date_str: '2025',
+            summary: 'Selected as a Finalist at the Makers Conclave by NIAT for architecting and demonstrating the AI-powered Railway Object Detection & Emergency Stop prototype.',
+            metrics: 'Finalist • Railway Prototype',
+          };
+        }
+        return r;
+      });
+    }
   } catch (e) {}
 
   return (
