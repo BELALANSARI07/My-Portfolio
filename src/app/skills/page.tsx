@@ -1,7 +1,7 @@
 import CosmicNavbar from '@/components/navbar/CosmicNavbar';
 import CosmicFooter from '@/components/sections/CosmicFooter';
 import SpotlightCard from '@/components/ui/SpotlightCard';
-import { createClient } from '@/lib/supabase/server';
+import { createPublicClient } from '@/lib/supabase/public';
 import { Skill, SkillCategory } from '@/types/database.types';
 import { Cpu, Terminal, Database, Server, Wrench, Sparkles, CheckCircle2 } from 'lucide-react';
 
@@ -39,7 +39,7 @@ export default async function SkillsPage() {
   let skills: Skill[] = [];
 
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data } = await supabase.from('skills').select('*').order('display_order', { ascending: true });
     if (data && data.length > 0) skills = data as Skill[];
   } catch (e) {}

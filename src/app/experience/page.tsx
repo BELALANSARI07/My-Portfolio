@@ -1,7 +1,7 @@
 import CosmicNavbar from '@/components/navbar/CosmicNavbar';
 import CosmicFooter from '@/components/sections/CosmicFooter';
 import SpotlightCard from '@/components/ui/SpotlightCard';
-import { createClient } from '@/lib/supabase/server';
+import { createPublicClient } from '@/lib/supabase/public';
 import { LeadershipHackathon } from '@/types/database.types';
 import { Trophy, Users, Award, ExternalLink, Sparkles, Calendar, CheckCircle2 } from 'lucide-react';
 
@@ -11,7 +11,7 @@ export default async function ExperiencePage() {
   let records: LeadershipHackathon[] = [];
 
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data } = await supabase.from('leadership_hackathons').select('*').order('display_order', { ascending: true });
     if (data && data.length > 0) records = data as LeadershipHackathon[];
   } catch (e) {}

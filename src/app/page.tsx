@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
+import { createPublicClient } from '@/lib/supabase/public';
 import CosmicNavbar from '@/components/navbar/CosmicNavbar';
 import CosmicHero from '@/components/sections/CosmicHero';
 import HighlightCards from '@/components/sections/HighlightCards';
@@ -167,7 +167,7 @@ export default async function Home() {
   let records = DEFAULT_RECORDS;
 
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
 
     const [profileRes, projectsRes, skillsRes, recordsRes] = await Promise.all([
       supabase.from('profiles').select('*').single(),

@@ -1,7 +1,7 @@
 import CosmicNavbar from '@/components/navbar/CosmicNavbar';
 import CosmicFooter from '@/components/sections/CosmicFooter';
 import SpotlightCard from '@/components/ui/SpotlightCard';
-import { createClient } from '@/lib/supabase/server';
+import { createPublicClient } from '@/lib/supabase/public';
 import { GraduationCap, Users, Sparkles, Code2, Download, ArrowRight, MapPin, Calendar, Heart } from 'lucide-react';
 
 export const revalidate = 60;
@@ -18,7 +18,7 @@ export default async function AboutPage() {
   };
 
   try {
-    const supabase = await createClient();
+    const supabase = createPublicClient();
     const { data } = await supabase.from('profiles').select('*').single();
     if (data) profile = { ...profile, ...data };
   } catch (e) {}
