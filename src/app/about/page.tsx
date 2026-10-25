@@ -109,6 +109,19 @@ export default async function AboutPage() {
 
           {/* Right Column: Profile Specs & Fast Facts (lg:col-span-4) */}
           <div className="lg:col-span-4 space-y-6">
+            <SpotlightCard className="p-4 overflow-hidden text-center">
+              <div className="relative w-full h-72 rounded-2xl overflow-hidden border border-white/10 bg-slate-900 mb-4">
+                <img
+                  src="/belal-ansari.png"
+                  alt={profile.full_name}
+                  className="w-full h-full object-cover object-top opacity-95"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-70" />
+              </div>
+              <h3 className="font-bold text-base text-white">{profile.full_name}</h3>
+              <p className="text-xs text-purple-300 font-mono mt-0.5">B.Tech CSE (AI/ML) • NIU</p>
+            </SpotlightCard>
+
             <SpotlightCard className="p-6 space-y-4">
               <h3 className="font-bold text-sm text-white uppercase tracking-wider pb-3 border-b border-white/[0.08]">
                 Fast Facts

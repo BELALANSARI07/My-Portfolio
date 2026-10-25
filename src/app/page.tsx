@@ -18,7 +18,7 @@ const DEFAULT_PROFILE: Profile = {
   contact_number: '7042181064',
   contact_email: 'belalansari000078@gmail.com',
   admin_email: 'belalansari000078@gmail.com',
-  avatar_url: null,
+  avatar_url: '/belal-ansari.png',
   resume_url: null,
   terminal_welcome_msg: 'System initialized. Belal Ansari AI core loaded.',
   github_url: 'https://github.com/BELALANSARI07',

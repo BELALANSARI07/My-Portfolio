@@ -171,9 +171,9 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
             {/* Profile Avatar Card / Frame */}
             <div className="relative z-10 w-64 h-80 sm:w-72 sm:h-96 rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-white/10 to-transparent backdrop-blur-md shadow-2xl">
               <img
-                src={profile.avatar_url || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"}
+                src={profile.avatar_url || "/belal-ansari.png"}
                 alt={profile.full_name}
-                className="w-full h-full object-cover object-top opacity-90 contrast-[1.05]"
+                className="w-full h-full object-cover object-top opacity-95 contrast-[1.05]"
               />
               {/* Subtle Bottom Vignette Gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-80" />
