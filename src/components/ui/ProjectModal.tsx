@@ -113,22 +113,21 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
           )}
 
-          {/* BENCHMARKS & METRICS */}
-          {project.metrics && project.metrics.length > 0 && (
+          {/* TARGET OBJECTIVES & CAPABILITIES */}
+          {project.target_goals && project.target_goals.length > 0 && (
             <div className="mb-6 space-y-2.5">
               <div className="flex items-center gap-2 text-slate-300 font-semibold text-xs uppercase tracking-wider font-mono">
-                <Activity className="h-4 w-4 text-emerald-400" />
-                <span>Metrics &amp; Telemetry</span>
+                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                <span>Target Objectives &amp; Core Capabilities</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {project.metrics.map((m, idx) => (
-                  <div key={idx} className="p-3.5 rounded-xl border border-white/[0.06] bg-black/40 font-mono">
-                    <div className="text-[10px] text-slate-400 uppercase tracking-wider truncate mb-1">
-                      {m.label}
-                    </div>
-                    <div className="text-base sm:text-lg font-black text-purple-300">
-                      {m.value}
-                    </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {project.target_goals.map((goal, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3 rounded-xl border border-emerald-500/20 bg-emerald-500/[0.04] text-xs font-mono text-emerald-300 flex items-center gap-2"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    <span>{goal}</span>
                   </div>
                 ))}
               </div>

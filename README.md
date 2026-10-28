@@ -123,12 +123,12 @@ My-Portfolio/
 
 ## 🔬 Featured Engineering Projects
 
-| Project | Primary Stack | Core Focus | Link |
+| Project | Primary Stack | Core Focus & Targets | Link |
 | :--- | :--- | :--- | :--- |
-| **Edge AI Railway Safety System** | `YOLOv8` `ESP32` `OpenCV` `MQTT` | Real-time computer vision obstacle detection and automated emergency train braking. Finalist at Makers Conclave by NIAT. | [Repository ↗](https://github.com/BELALANSARI07/Edge-AI-Railway-Safety-System) |
-| **Low-Latency Edge AI Alert System** | `ONNX` `TensorRT` `YOLOv8` `FastAPI` | Quantized neural inference (< 15ms) running on edge compute for instant anomaly detection without cloud dependence. | [Repository ↗](https://github.com/BELALANSARI07/Low-Latency-Edge-AI-Alert-System.) |
-| **Multi-Modal RAG Knowledge Engine** | `ColPali` `PyTorch` `Qdrant` `LangChain` | Hybrid late-interaction multi-vector document search across complex technical diagrams and text blueprints. | [Repository ↗](https://github.com/BELALANSARI07/Multi-Modal-RAG-Knowledge-Engine) |
-| **ReliefLink AI** | `Next.js` `FastAPI` `WebSockets` `GeoJSON` | Real-time natural disaster coordination platform with live SOS tracking and AI emergency triage. | [Repository ↗](https://github.com/BELALANSARI07/relieflink-ai) |
+| **Edge AI Railway Safety System** | `Python` `YOLOv8` `OpenCV` `ESP32` `Ultrasonic` `L298N` | Real-time track corridor hazard detection, ultrasonic proximity validation, and automated train emergency braking. Finalist at Makers Conclave by NIAT. | [Repository ↗](https://github.com/BELALANSARI07/Edge-AI-Railway-Safety-System) |
+| **Low-Latency Edge AI Alert System** | `Python` `FastAPI` `YOLOv8` `ONNX Runtime` `MQTT` `Docker` | Local-first edge computer vision and real-time alerting pipeline prototype for low-power hardware. 49 automated unit tests passing. | [Repository ↗](https://github.com/BELALANSARI07/Low-Latency-Edge-AI-Alert-System.) |
+| **Multi-Modal RAG Knowledge Engine** | `Python` `FastAPI` `ChromaDB` `PyMuPDF` `MiniLM` `Gemini` | Asynchronous multi-modal retrieval engine for technical PDFs containing text, tables, and visual graphics. 68 automated unit tests passing. | [Repository ↗](https://github.com/BELALANSARI07/Multi-Modal-RAG-Knowledge-Engine) |
+| **ReliefLink AI** | `System Architecture` `Disaster Intelligence` `Open Source` | Humanitarian proposal and architectural framework for real-time SOS incident coordination and shelter mapping during natural disasters. | [Repository ↗](https://github.com/BELALANSARI07/relieflink-ai) |
 
 ---
 

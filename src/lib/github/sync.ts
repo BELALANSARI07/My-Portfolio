@@ -83,7 +83,7 @@ export function inferWhatIsItFor(repo: GitHubRepo): string {
 
   const cleanTitle = formatRepoTitle(repo.name);
   const langText = repo.language ? `built with ${repo.language}` : 'an open-source system';
-  return `${cleanTitle} is ${langText} by Belal Ansari. Created to explore engineering architectures and open-source problem-solving. Explore the repository for full source code, setup instructions, and blueprints.`;
+  return `Targeted to provide ${langText} for ${cleanTitle.toLowerCase()} engineering and research. Explore the repository for full source code, blueprints, and setup documentation.`;
 }
 
 /**
@@ -187,25 +187,20 @@ export function mergeGitHubWithCurated(
       title: cleanTitle,
       tagline: r.description || `Open-source engineering repository by Belal Ansari.`,
       what_is_it_for: inferWhatIsItFor(r),
+      target_goals: [
+        'Open-Source Repository',
+        r.language || 'Software Engineering',
+        'Modular Architecture',
+      ],
       architecture_summary: r.description || `Public GitHub repository open-sourced by Belal Ansari.`,
       architecture_diagram: null,
       stack: inferTechStack(r),
-      metrics: [
-        { label: 'Primary Language', value: r.language || 'Code' },
-        { label: 'GitHub Stars', value: `${r.stargazers_count}` },
-        {
-          label: 'Last Pushed',
-          value: new Date(r.pushed_at).toLocaleDateString('en-US', {
-            month: 'short',
-            year: 'numeric',
-          }),
-        },
-      ],
+      metrics: [],
       repo_url: r.html_url,
       live_url: r.homepage || null,
       paper_url: null,
       model_weights_url: null,
-      status: 'PRODUCTION',
+      status: 'OPEN SOURCE REPOSITORY',
       featured: true,
       display_order: 10 + idx,
       created_at: r.created_at || new Date().toISOString(),

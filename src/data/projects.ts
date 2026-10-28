@@ -2,6 +2,7 @@ import { Project } from '@/types/database.types';
 
 export interface EnrichedProject extends Project {
   what_is_it_for: string;
+  target_goals: string[];
 }
 
 export const PORTFOLIO_PROJECTS: EnrichedProject[] = [
@@ -9,21 +10,23 @@ export const PORTFOLIO_PROJECTS: EnrichedProject[] = [
     id: 'prj-railway',
     slug: 'edge-ai-railway-safety-system',
     title: 'Edge AI Railway Safety & Emergency Stop System',
-    tagline: 'Autonomous computer vision hazard detection and emergency braking system for railway corridors.',
-    what_is_it_for: 'Designed to prevent catastrophic railway track accidents and collisions. The system uses high-speed edge computer vision (YOLOv8) combined with ultrasonic distance sensors to monitor railway tracks in real time, distinguish between humans, animals, vehicles, and debris, and automatically trigger emergency braking protocols with instant IoT telemetry.',
-    architecture_summary: 'Constructed using YOLOv8 trained on railway track anomaly datasets deployed to edge hardware with ESP32 microcontrollers. Features optical flow smoothing to prevent false-positive emergency stops and transmits instantaneous emergency stop commands to train brake relays and telemetry dashboards over MQTT.',
+    tagline: 'Autonomous computer vision hazard detection and emergency braking control for railway tracks.',
+    what_is_it_for: 'Designed to prevent railway track accidents and collisions. The system uses real-time computer vision to monitor track corridors, distinguish between people, animals, and vehicles, validate obstacle distance using ultrasonic sensing to prevent false positives, and automatically trigger emergency stop commands to the train controller.',
+    architecture_summary: 'Combines computer vision with an embedded hardware prototype. Uses YOLOv8 for visual obstacle classification, track corridor polygon geometry to confirm if an obstacle is on the track, HC-SR04 ultrasonic distance sensing for physical proximity validation, and sends stop signals to an ESP32 microcontroller and L298N motor driver with live incident logging. Selected as a Finalist at Makers Conclave by NIAT.',
     architecture_diagram: null,
-    stack: ['YOLOv8', 'Python', 'OpenCV', 'ESP32', 'Ultrasonic Sensing', 'FastAPI', 'MQTT', 'IoT'],
-    metrics: [
-      { label: 'Hazard Detection AP', value: '94.8%' },
-      { label: 'Brake Trigger Latency', value: '22ms' },
-      { label: 'False Positive Rate', value: '0.12%' },
+    stack: ['Python', 'YOLOv8', 'OpenCV', 'ESP32', 'Ultrasonic Sensing', 'L298N Motor Driver', 'NumPy'],
+    target_goals: [
+      'Corridor Hazard Detection',
+      'Ultrasonic Distance Verification',
+      'ESP32 Automated Braking',
+      'Live Incident Logging',
     ],
+    metrics: [],
     repo_url: 'https://github.com/BELALANSARI07/Edge-AI-Railway-Safety-System',
     live_url: null,
     paper_url: null,
     model_weights_url: null,
-    status: 'PRODUCTION',
+    status: 'PROTOTYPE',
     featured: true,
     display_order: 1,
     created_at: new Date().toISOString(),
@@ -33,21 +36,24 @@ export const PORTFOLIO_PROJECTS: EnrichedProject[] = [
     id: 'prj-edge-alert',
     slug: 'low-latency-edge-ai-alert-system',
     title: 'Low-Latency Edge AI Alert System',
-    tagline: 'Quantized real-time anomaly detection and alert dispatch pipeline optimized for edge compute hardware.',
-    what_is_it_for: 'Developing an optimized computer vision pipeline to process real-time camera streams on low-power edge hardware (such as Raspberry Pi and Jetson devices). It runs quantized lightweight neural architectures at sub-15ms per frame to trigger instant local alerts without relying on external cloud connectivity.',
-    architecture_summary: 'Targeted for edge environments where cloud latency and internet unreliability are unacceptable. The system ingests 60 FPS video streams, performs on-device resizing, executes FP16/INT8-quantized YOLOv8-nano inference via ONNX Runtime / TensorRT (sub-15ms), runs local NMS post-processing, and triggers instant MQTT telemetry alerts.',
+    tagline: 'Local-first edge computer vision and real-time alerting pipeline prototype for low-power hardware.',
+    what_is_it_for: 'Built to provide a local-first computer vision and alert dispatch pipeline designed to run on low-power edge hardware (such as Raspberry Pi and Jetson platforms). The objective is to detect anomalies and dispatch immediate local alerts without depending on external cloud connectivity or suffering network latency.',
+    architecture_summary: 'Audited, test-driven Python application featuring video ingestion with auto-reconnection, letterbox preprocessing, ONNX Runtime CPU inference for YOLOv8, pure NumPy vectorized Non-Maximum Suppression (NMS), SQLite alert history persistence, MQTT telemetry dispatch with cooldown suppression, and simulated GPIO fail-safe transitions. Backed by 49 automated unit and functional tests.',
     architecture_diagram: null,
-    stack: ['PyTorch', 'YOLOv8', 'OpenCV', 'ONNX Runtime', 'Mosquitto (MQTT)', 'FastAPI', 'TensorRT'],
-    metrics: [
-      { label: 'Model Engine', value: 'ONNX / TensorRT' },
-      { label: 'Target Latency', value: '< 15ms' },
-      { label: 'Alert Protocol', value: 'MQTT / WebSockets' },
+    stack: ['Python', 'FastAPI', 'YOLOv8', 'ONNX Runtime', 'OpenCV', 'NumPy', 'MQTT (Mosquitto)', 'SQLite', 'Docker'],
+    target_goals: [
+      'Local On-Device Inference',
+      'Zero Cloud Dependency',
+      'Vectorized NumPy NMS',
+      'MQTT Cooldown Telemetry',
+      'Fail-Safe GPIO Relays',
     ],
+    metrics: [],
     repo_url: 'https://github.com/BELALANSARI07/Low-Latency-Edge-AI-Alert-System.',
     live_url: null,
     paper_url: null,
     model_weights_url: null,
-    status: 'PRODUCTION',
+    status: 'PROTOTYPE',
     featured: true,
     display_order: 2,
     created_at: new Date().toISOString(),
@@ -57,21 +63,24 @@ export const PORTFOLIO_PROJECTS: EnrichedProject[] = [
     id: 'prj-rag',
     slug: 'multimodal-rag-knowledge-engine',
     title: 'Multi-Modal RAG Knowledge Engine',
-    tagline: 'Hybrid semantic retrieval engine for complex vision-language documents, technical diagrams, and dense vector search.',
-    what_is_it_for: 'Built to solve the limitations of standard text-only RAG when analyzing technical engineering documents, blueprints, and charts. It ingests complex multimodal PDFs, embeds both visual layout and textual context into vector space, and uses cross-encoder reranking to provide precise, verifiable answers.',
-    architecture_summary: 'Multi-modal indexing pipeline using ColPali / BGE multi-vector late-interaction embeddings with Qdrant vector storage. Ingests raw document pages as visual patches, eliminating brittle OCR extraction, and passes retrieved context to multimodal LLMs with source citations.',
+    tagline: 'Asynchronous multi-modal retrieval engine for technical PDFs containing text, tables, and visual graphics.',
+    what_is_it_for: 'Built to solve the limitation of standard text-only RAG systems when analyzing complex technical documents. It extracts embedded charts, architectural diagrams, and figures alongside narrative text, synthesizes visual descriptions using Vision-Language Models (VLMs), and indexes both into a unified vector space for grounded question answering with verifiable citations.',
+    architecture_summary: 'Asynchronous FastAPI knowledge engine that parses complex multi-page PDFs using PyMuPDF, chunks narrative text with boundary-aware sliding windows, extracts and normalizes graphics, synthesizes dense visual descriptions via Gemini 1.5 Flash / GPT-4o-mini (with deterministic offline local fallbacks), maps text and visuals into a unified 384-dimensional vector space using all-MiniLM-L6-v2, and retrieves context from persistent ChromaDB with relevance guardrails. Backed by 68 automated tests.',
     architecture_diagram: null,
-    stack: ['Python', 'PyTorch', 'LangChain', 'FastAPI', 'Qdrant', 'ColPali', 'Transformers', 'ChromaDB'],
-    metrics: [
-      { label: 'P95 Query Latency', value: '184ms' },
-      { label: 'Recall@5', value: '92.4%' },
-      { label: 'Context Dimension', value: '1024-d' },
+    stack: ['Python', 'FastAPI', 'ChromaDB', 'PyMuPDF', 'all-MiniLM-L6-v2', 'Gemini API', 'OpenAI API', 'Docker'],
+    target_goals: [
+      'First-Class Visual Extraction',
+      'VLM Figure Summarization',
+      'Unified 384-d Vector Store',
+      'Grounded Source Citations',
+      'Offline Local Fallback',
     ],
+    metrics: [],
     repo_url: 'https://github.com/BELALANSARI07/Multi-Modal-RAG-Knowledge-Engine',
     live_url: null,
     paper_url: null,
     model_weights_url: null,
-    status: 'PRODUCTION',
+    status: 'RESEARCH',
     featured: true,
     display_order: 3,
     created_at: new Date().toISOString(),
@@ -82,20 +91,22 @@ export const PORTFOLIO_PROJECTS: EnrichedProject[] = [
     slug: 'relieflink-ai',
     title: 'ReliefLink AI – Disaster Response Platform',
     tagline: 'Emergency coordination platform connecting agencies, volunteers, and citizens during natural disasters.',
-    what_is_it_for: 'Built to save lives during critical crisis events (floods, earthquakes, storms) by eliminating emergency response chaos. It provides real-time SOS tracking, interactive shelter and resource mapping, and AI-assisted supply triage to help rescue teams reach stranded victims faster.',
-    architecture_summary: 'Real-time incident response architecture combining geospatial mapping (GeoJSON / Leaflet), WebSocket-driven SOS status updates, and AI priority ranking algorithms to prevent duplicate rescue efforts and coordinate emergency supplies.',
+    what_is_it_for: 'Designed to improve humanitarian response during natural disasters (floods, earthquakes, storms) by eliminating emergency communication chaos. It aims to provide centralized real-time SOS tracking, interactive shelter and resource mapping, and volunteer dispatching to help rescue teams reach stranded victims faster.',
+    architecture_summary: 'Open-source humanitarian proposal and architectural framework focused on real-time incident coordination. Designed for rapid citizen SOS reporting, geolocation-based supply and shelter mapping, automated volunteer coordination, and duplicate incident suppression during critical crisis events.',
     architecture_diagram: null,
-    stack: ['Next.js', 'Python', 'FastAPI', 'PostgreSQL', 'WebSockets', 'GeoJSON', 'Tailwind CSS'],
-    metrics: [
-      { label: 'SOS Dispatch Latency', value: '< 500ms' },
-      { label: 'Coordination Efficiency', value: '+40%' },
-      { label: 'Architecture', value: 'Resilient PWA' },
+    stack: ['System Architecture', 'Disaster Intelligence', 'Emergency Coordination', 'Open Source'],
+    target_goals: [
+      'Real-Time SOS Incident Tracking',
+      'Geospatial Shelter & Resource Map',
+      'Multi-Agency Volunteer Coordination',
+      'Crisis Communication Hub',
     ],
+    metrics: [],
     repo_url: 'https://github.com/BELALANSARI07/relieflink-ai',
     live_url: null,
     paper_url: null,
     model_weights_url: null,
-    status: 'PRODUCTION',
+    status: 'RESEARCH',
     featured: true,
     display_order: 4,
     created_at: new Date().toISOString(),
@@ -108,9 +119,6 @@ export function mergeWithEnrichedProjects(dbProjects: Project[]): EnrichedProjec
   if (!dbProjects || dbProjects.length === 0) {
     return PORTFOLIO_PROJECTS;
   }
-
-  // Filter dbProjects to only those matching our confirmed active portfolio projects
-  const activeSlugs = new Set(PORTFOLIO_PROJECTS.map((p) => p.slug));
 
   const enriched: EnrichedProject[] = [];
 
@@ -126,11 +134,12 @@ export function mergeWithEnrichedProjects(dbProjects: Project[]): EnrichedProjec
       enriched.push({
         ...curated,
         ...match,
-        what_is_it_for: (match as any).what_is_it_for || curated.what_is_it_for,
-        repo_url: curated.repo_url, // Preserve curated GitHub repo
+        what_is_it_for: curated.what_is_it_for,
+        target_goals: curated.target_goals,
+        repo_url: curated.repo_url,
         live_url: match.live_url || curated.live_url,
-        stack: match.stack && match.stack.length > 0 ? match.stack : curated.stack,
-        metrics: match.metrics && match.metrics.length > 0 ? match.metrics : curated.metrics,
+        stack: curated.stack,
+        metrics: [],
       });
     } else {
       enriched.push(curated);

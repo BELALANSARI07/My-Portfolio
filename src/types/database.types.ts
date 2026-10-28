@@ -58,7 +58,7 @@ export interface Project {
   live_url: string | null;
   paper_url: string | null;
   model_weights_url: string | null;
-  status: 'PRODUCTION' | 'RESEARCH' | 'EXPERIMENT';
+  status: 'PRODUCTION' | 'RESEARCH' | 'EXPERIMENT' | 'PROTOTYPE' | string;
   featured: boolean;
   display_order: number;
   latency_ms?: number | null;

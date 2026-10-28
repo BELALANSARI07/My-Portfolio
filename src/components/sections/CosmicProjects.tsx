@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, ArrowRight, Sparkles, Layers, Target } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight, Sparkles, Layers, Target, CheckCircle2 } from 'lucide-react';
 import { Project } from '@/types/database.types';
 import SpotlightCard from '@/components/ui/SpotlightCard';
 import ProjectModal from '@/components/ui/ProjectModal';
@@ -102,26 +102,34 @@ export default function CosmicProjects({ projects }: CosmicProjectsProps) {
                   )}
                 </div>
 
-                {/* What is it for / Mission statement */}
-                <div className="rounded-xl border border-white/[0.06] bg-black/30 p-3.5 space-y-1">
-                  <div className="flex items-center gap-1.5 text-purple-400 font-mono text-[10px] font-semibold uppercase tracking-wider">
-                    <Target className="h-3 w-3" />
-                    <span>What It Is Built For</span>
+                {/* What We Are Trying to Achieve */}
+                <div className="rounded-xl border border-purple-500/20 bg-purple-500/[0.04] p-3.5 space-y-1.5">
+                  <div className="flex items-center gap-1.5 text-purple-300 font-mono text-[10px] font-semibold uppercase tracking-wider">
+                    <Target className="h-3.5 w-3.5 text-purple-400" />
+                    <span>Target: What We Are Trying to Achieve</span>
                   </div>
-                  <p className="text-slate-300 text-xs leading-relaxed line-clamp-2">
+                  <p className="text-slate-200 text-xs leading-relaxed line-clamp-3">
                     {project.what_is_it_for || project.architecture_summary}
                   </p>
                 </div>
 
-                {/* Real Benchmark Metrics (if available) */}
-                {project.metrics && project.metrics.length > 0 && (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-1 font-mono">
-                    {project.metrics.slice(0, 3).map((m: any, mIdx: number) => (
-                      <div key={mIdx} className="p-2 sm:p-2.5 rounded-lg bg-black/40 border border-white/[0.04]">
-                        <div className="text-[10px] text-slate-500 uppercase truncate">{m.label}</div>
-                        <div className="text-xs sm:text-sm font-bold text-purple-300 truncate">{m.value}</div>
-                      </div>
-                    ))}
+                {/* Core Target Objectives */}
+                {project.target_goals && project.target_goals.length > 0 && (
+                  <div className="space-y-1.5 pt-1">
+                    <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <CheckCircle2 className="h-3 w-3 text-emerald-400" />
+                      <span>Target Objectives &amp; Capabilities</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.target_goals.map((goal: string, gIdx: number) => (
+                        <span
+                          key={gIdx}
+                          className="px-2.5 py-1 rounded-lg border border-emerald-500/20 bg-emerald-500/[0.06] text-[11px] font-mono text-emerald-300"
+                        >
+                          {goal}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
