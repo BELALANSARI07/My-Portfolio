@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { 
   ArrowRight, 
@@ -74,13 +75,16 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
 
             {/* Profile Avatar Frame (Responsive: perfectly sized on mobile) */}
             <div className="relative z-10 w-44 h-56 sm:w-64 sm:h-80 lg:w-72 lg:h-96 rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-white/10 to-transparent backdrop-blur-md shadow-2xl">
-              <img
-                src={profile.avatar_url || "/belal-ansari.png"}
-                alt={profile.full_name}
-                className="w-full h-full object-cover object-top opacity-95 contrast-[1.05]"
+              <Image
+                src={profile.avatar_url || "/belal-ansari.webp"}
+                alt={profile.full_name || "Belal Ansari"}
+                fill
+                priority
+                sizes="(max-width: 640px) 176px, (max-width: 1024px) 256px, 288px"
+                className="object-cover object-top opacity-95 contrast-[1.05]"
               />
               {/* Subtle Bottom Vignette Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-80 pointer-events-none" />
             </div>
 
             {/* Floating Glass Pills (Hidden on mobile phones to prevent cluttering portrait, visible on md+) */}
@@ -141,8 +145,8 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
               </h1>
             </div>
 
-            {/* Dynamic Typing Sub-headline */}
-            <div className="min-h-[48px] sm:min-h-[52px] flex items-center justify-center lg:justify-start">
+            {/* Dynamic Typing Sub-headline (Locked height to prevent CLS layout shift) */}
+            <div className="min-h-[64px] sm:min-h-[52px] flex items-center justify-center lg:justify-start">
               <p className="text-slate-300 text-xs sm:text-base leading-relaxed font-sans">
                 {displayText}
                 <span className="typing-cursor" />

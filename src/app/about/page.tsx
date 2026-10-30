@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import CosmicNavbar from '@/components/navbar/CosmicNavbar';
 import CosmicFooter from '@/components/sections/CosmicFooter';
 import SpotlightCard from '@/components/ui/SpotlightCard';
@@ -14,6 +15,7 @@ export default async function AboutPage() {
     location: 'Delhi, India',
     timezone: 'Asia/Kolkata (UTC+05:30)',
     contact_email: 'belalansari000078@gmail.com',
+    avatar_url: '/belal-ansari.webp',
     resume_url: 'https://drive.google.com/file/d/1RqhA1UmPV272MP1wC-8MvOBOplpxXdgY/view?usp=sharing',
   };
 
@@ -111,12 +113,14 @@ export default async function AboutPage() {
           <div className="lg:col-span-4 space-y-6">
             <SpotlightCard className="p-4 overflow-hidden text-center">
               <div className="relative w-full h-72 rounded-2xl overflow-hidden border border-white/10 bg-slate-900 mb-4">
-                <img
-                  src="/belal-ansari.png"
-                  alt={profile.full_name}
-                  className="w-full h-full object-cover object-top opacity-95"
+                <Image
+                  src={profile.avatar_url || "/belal-ansari.webp"}
+                  alt={profile.full_name || "Belal Ansari"}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 384px"
+                  className="object-cover object-top opacity-95"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-70" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-70 pointer-events-none" />
               </div>
               <h3 className="font-bold text-base text-white">{profile.full_name}</h3>
               <p className="text-xs text-purple-300 font-mono mt-0.5">B.Tech CSE (AI/ML) • NIU</p>
