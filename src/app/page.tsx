@@ -21,7 +21,7 @@ const DEFAULT_PROFILE: Profile = {
   contact_email: 'belalansari000078@gmail.com',
   admin_email: 'belalansari000078@gmail.com',
   avatar_url: '/belal-ansari.png',
-  resume_url: null,
+  resume_url: 'https://drive.google.com/file/d/1RqhA1UmPV272MP1wC-8MvOBOplpxXdgY/view?usp=sharing',
   terminal_welcome_msg: 'System initialized. Belal Ansari AI core loaded.',
   github_url: 'https://github.com/BELALANSARI07',
   linkedin_url: 'https://www.linkedin.com/in/belal-ansari-7a2bb3303',

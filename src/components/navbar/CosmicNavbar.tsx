@@ -93,7 +93,7 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
           </div>
 
           <a
-            href={resumeUrl || 'https://drive.google.com/file/d/1XN3kU-m0nC1BwG-H8-7cR-6hG/view'}
+            href={resumeUrl || 'https://drive.google.com/file/d/1RqhA1UmPV272MP1wC-8MvOBOplpxXdgY/view?usp=sharing'}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-xl border border-white/[0.12] bg-white/[0.04] px-4 py-2 text-xs font-medium text-white/90 backdrop-blur-md hover:bg-white/[0.08] hover:border-purple-500/40 hover:text-white transition-all shadow-sm"
@@ -150,7 +150,7 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
               <span>Admin Gate</span>
             </Link>
             <a
-              href={resumeUrl || 'https://drive.google.com/file/d/1XN3kU-m0nC1BwG-H8-7cR-6hG/view'}
+              href={resumeUrl || 'https://drive.google.com/file/d/1RqhA1UmPV272MP1wC-8MvOBOplpxXdgY/view?usp=sharing'}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-white/[0.12] bg-purple-600/20 text-xs font-semibold text-white shadow-sm"

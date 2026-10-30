@@ -94,7 +94,7 @@ export default function CosmicFooter({ profile }: CosmicFooterProps) {
               </button>
 
               <a
-                href={profile.resume_url || 'https://drive.google.com/file/d/1XN3kU-m0nC1BwG-H8-7cR-6hG/view'}
+                href={profile.resume_url || 'https://drive.google.com/file/d/1RqhA1UmPV272MP1wC-8MvOBOplpxXdgY/view?usp=sharing'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/[0.12] bg-[#0b0f19]/80 px-6 py-3.5 sm:py-3 text-xs sm:text-sm font-semibold text-slate-200 backdrop-blur-md hover:bg-white/[0.08] hover:border-purple-500/40 hover:text-white transition-all shadow-sm text-center"
