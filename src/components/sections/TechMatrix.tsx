@@ -80,31 +80,51 @@ export default function TechMatrix({ skills }: TechMatrixProps) {
 
                   {/* Skills Telemetry List */}
                   <div className="space-y-3 font-mono text-xs">
-                    {categorySkills.map((skill) => (
-                      <div key={skill.id} className="space-y-1">
-                        <div className="flex items-center justify-between text-text-secondary">
-                          <span className="flex items-center gap-1.5">
-                            {skill.highlighted && (
-                              <span className="h-1 w-1 bg-telemetry-green rounded-full" />
-                            )}
-                            <span className={skill.highlighted ? "text-text-pure font-medium" : ""}>
-                              {skill.name}
-                            </span>
-                          </span>
-                          <span className="text-text-muted text-[11px]">
-                            {skill.proficiency_level}%
-                          </span>
-                        </div>
+                    {categorySkills.map((skill) => {
+                      const isCore = skill.highlighted || skill.proficiency_level >= 90;
+                      const isApplied = skill.proficiency_level >= 85;
+                      const activeSegments = isCore ? 3 : isApplied ? 2 : 1;
 
-                        {/* Telemetry Progress Bar */}
-                        <div className="h-1 w-full bg-canvas-surface overflow-hidden">
-                          <div
-                            className="h-full bg-border-active transition-all duration-500"
-                            style={{ width: `${skill.proficiency_level}%` }}
-                          />
+                      return (
+                        <div key={skill.id} className="space-y-1.5">
+                          <div className="flex items-center justify-between text-text-secondary">
+                            <span className="flex items-center gap-1.5">
+                              {skill.highlighted && (
+                                <span className="h-1.5 w-1.5 bg-telemetry-green rounded-full animate-pulse" />
+                              )}
+                              <span className={skill.highlighted ? "text-text-pure font-medium" : ""}>
+                                {skill.name}
+                              </span>
+                            </span>
+                            <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded border ${
+                              isCore 
+                                ? 'border-cyan-500/30 text-cyan-400 bg-cyan-500/10'
+                                : isApplied
+                                ? 'border-purple-500/30 text-purple-300 bg-purple-500/10'
+                                : 'border-slate-700 text-slate-400 bg-slate-800/40'
+                            }`}>
+                              {isCore ? 'CORE' : isApplied ? 'APPLIED' : 'BASE'}
+                            </span>
+                          </div>
+
+                          {/* 3-Segment Telemetry Bar */}
+                          <div className="flex items-center gap-1">
+                            {[1, 2, 3].map((seg) => (
+                              <div
+                                key={seg}
+                                className={`h-1 flex-1 rounded-full ${
+                                  seg <= activeSegments
+                                    ? isCore
+                                      ? 'bg-gradient-to-r from-blue-500 to-cyan-400'
+                                      : 'bg-gradient-to-r from-purple-500 to-indigo-400'
+                                    : 'bg-white/[0.06]'
+                                }`}
+                              />
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 

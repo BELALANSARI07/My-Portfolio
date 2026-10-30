@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Download, Moon, Shield, Menu, X, Activity } from 'lucide-react';
+import { Download, Moon, Menu, X, Activity } from 'lucide-react';
 
 interface CosmicNavbarProps {
   resumeUrl?: string | null;
@@ -80,14 +80,6 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
 
         {/* Right: Actions */}
         <div className="hidden md:flex items-center gap-3">
-          <Link
-            href="/admin"
-            className="p-2 text-slate-400 hover:text-purple-300 transition-colors"
-            title="Admin Control Plane"
-          >
-            <Shield className="h-4 w-4" />
-          </Link>
-
           <div className="p-2 text-slate-400 hover:text-slate-200 cursor-default" title="Dark Canvas Mode">
             <Moon className="h-4 w-4" />
           </div>
@@ -140,23 +132,15 @@ export default function CosmicNavbar({ resumeUrl }: CosmicNavbarProps) {
               </Link>
             );
           })}
-          <div className="pt-4 mt-2 border-t border-white/[0.08] flex items-center justify-between gap-3">
-            <Link
-              href="/admin"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-xs text-slate-400 hover:text-purple-300 flex items-center gap-1.5 p-2 rounded-lg hover:bg-white/[0.04]"
-            >
-              <Shield className="h-4 w-4 text-purple-400" />
-              <span>Admin Gate</span>
-            </Link>
+          <div className="pt-4 mt-2 border-t border-white/[0.08] flex items-center justify-end">
             <a
               href={resumeUrl || 'https://drive.google.com/file/d/1RqhA1UmPV272MP1wC-8MvOBOplpxXdgY/view?usp=sharing'}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-white/[0.12] bg-purple-600/20 text-xs font-semibold text-white shadow-sm"
+              className="w-full justify-center inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-white/[0.12] bg-purple-600/20 text-xs font-semibold text-white shadow-sm hover:bg-purple-600/30 transition-all"
             >
               <Download className="h-3.5 w-3.5" />
-              <span>Resume</span>
+              <span>Download Resume</span>
             </a>
           </div>
         </div>

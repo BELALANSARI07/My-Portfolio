@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, 
@@ -125,6 +126,9 @@ export default function CosmicFooter({ profile }: CosmicFooterProps) {
             <a href="https://www.kaggle.com/belalansari07" target="_blank" rel="noopener noreferrer" className="hover:text-slate-300">
               Kaggle
             </a>
+            <Link href="/admin" className="text-slate-700 hover:text-slate-400 transition-colors" title="System Gateway">
+              Portal
+            </Link>
           </div>
         </div>
       </div>
