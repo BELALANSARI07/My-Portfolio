@@ -76,7 +76,7 @@ export default function CosmicHero({ profile }: CosmicHeroProps) {
             {/* Profile Avatar Frame (Responsive: perfectly sized on mobile) */}
             <div className="relative z-10 w-44 h-56 sm:w-64 sm:h-80 lg:w-72 lg:h-96 rounded-3xl overflow-hidden border border-white/20 bg-gradient-to-b from-white/10 to-transparent backdrop-blur-md shadow-2xl">
               <Image
-                src={profile.avatar_url || "/belal-ansari.webp"}
+                src={(!profile.avatar_url || profile.avatar_url === '/belal-ansari.png') ? '/belal-ansari.webp' : profile.avatar_url}
                 alt={profile.full_name || "Belal Ansari"}
                 fill
                 priority

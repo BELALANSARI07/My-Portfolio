@@ -114,7 +114,7 @@ export default async function AboutPage() {
             <SpotlightCard className="p-4 overflow-hidden text-center">
               <div className="relative w-full h-72 rounded-2xl overflow-hidden border border-white/10 bg-slate-900 mb-4">
                 <Image
-                  src={profile.avatar_url || "/belal-ansari.webp"}
+                  src={(!profile.avatar_url || profile.avatar_url === '/belal-ansari.png') ? '/belal-ansari.webp' : profile.avatar_url}
                   alt={profile.full_name || "Belal Ansari"}
                   fill
                   sizes="(max-width: 1024px) 100vw, 384px"
